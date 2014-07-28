@@ -1,0 +1,32 @@
+.icon-next
+{
+	background: inline-image('../images/icons/next.png') no-repeat;
+}
+.icon-previous
+{
+	background: inline-image('../images/icons/previous.png') no-repeat
+}
+.icon-first
+{
+	background: inline-image('../images/icons/first.png') no-repeat
+}
+.icon-last
+{
+	background: inline-image('../images/icons/last.png') no-repeat
+}
+.icon-next, .icon-previous, .icon-first, .icon-last
+{
+	border: 1px solid lightblue;
+	&:hover
+	{
+		border: 1px solid green;
+	}
+}
+.icon 
+{
+	box-sizing: border-box;
+	width: 48px;
+	height: 48px;
+	display: table-cell;
+	cursor: pointer;		
+}
