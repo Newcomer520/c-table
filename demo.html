@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+		<link rel="stylesheet" href="build/stylesheets/ips2.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+		<script src="build/ips2Table-build.js"></script>
+		<script src="dataService.js"></script>
+		<!--[if lt IE 9]>
+			<link href="local/ie.css" rel="stylesheet" type="text/css">			
+			<script type="text/javascript" src="//inip.local/Public/Scripts/bootstrap/html5shiv.js"></script>
+			<script type="text/javascript" src="//inip.local/Public/Scripts/bootstrap/respond.js"></script>		
+		<![endif]-->		
+	</head>
+	<body ng-controller="just-ctrl">
+		<div style="width:800px;height:500px;">
+			<div ips2-table data="data"  paginate="row" paginate-number="10">
+				<div it-group type="column" field-repeat="3" field-hidden="true">
+					<div it-key >
+						<div it-key key="SITE" sort="siteSort" style="background-color:pink;" expression="expr" >
+							<div it-field field="CNAME" name="姓名" style="background-color:pink;color:#fff;width:80px;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div it-group type="row" field-hidden="false">
+					<div it-key key="CATEGORY" style="width:60px;font-size:10px;background-color:lightyellow;" sort="categorySort" expression="expr" subtotal="cateSubAgg">
+						<div it-key key="ZJOBCODE3TXT" style="width:90px;background-color:lightgreen;" expression="expr">
+							<div it-key key="POSITION" style="width:100px;height:40px;font-size:10px;background-color:lightgreen;" sort="positionSort" expression="expr">
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+	var ctrlModule = angular.module('ctrl-module', ['ips2.table', 'category.service']);
+	ctrlModule.config(['categoryServiceProvider', function(provider) {
+		provider.setWebApiUrl('demo.json');
+	}]);
+	ctrlModule.controller('just-ctrl', justCtrl);
+
+	var app = angular.module('ng-table-app', ['ctrl-module']);
+	angular.bootstrap(document.body, ['ng-table-app']);
+
+	justCtrl.$inject = ['$scope', 'categoryService'];
+	function justCtrl($scope, categoryService) {
+		categoryService.alistCategory(function(error, data, status) {
+			$scope.data = data;			
+
+		});
+
+
+		$scope.siteSort = {
+			fn: function(item) { return item.SITE; },
+			desc: true
+		};
+
+		$scope.categorySort = {
+			fn: function(item) { 
+				switch (item.CATEGORY) {
+					case '主管群組':
+						return 1;
+					case '工作':
+						return 0;
+					case '互動':
+						return 2;
+					default:
+						return 999;
+				}
+			},
+			desc: false
+		};
+		$scope.positionSort = {
+			fn: function(item) { return item.POSITION; },
+			desc: true
+		};
+		$scope.aggBySite = {
+			aggFn: function(item) {
+				return 1;
+			}
+		}
+		$scope.expr = function(value, raws) {
+			return value + '(' + raws.length + ')';
+		}
+
+		$scope.cateSubAgg = {
+			position: 'front',
+			joinedBy: 'SITE',
+			style: {
+				'background-color': 'red',
+				'font-weight': 'bold',
+				'height': '30px'
+			},
+			nullValue: 0,
+			expression: function(value) {
+				return value + '家族 by 廠區小計';
+			},
+			aggFn: function(localRaws) {
+				return localRaws.length;
+			}
+		}
+
+		$scope.posSubAgg = {
+			position: 'front',
+			joinedBy: 'SITE',
+			style: {
+				'background-color': 'blue',
+				'color': 'white',
+				'font-weight': 'bold',
+				'height': '30px'
+			},
+			nullValue: 0,
+			expression: function(value) {
+				return value + 'by 廠區小計';
+			},
+			aggFn: function(localRaws) {
+				return localRaws.length;
+			}
+		}
+	}
+	</script>
+</html>

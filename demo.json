@@ -1,0 +1,1955 @@
+[
+    {
+        "PERNR": "916978802",
+        "CNAME": "孫X紅",
+        "SITE": "龍華",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1148958142",
+        "CNAME": "林X儀",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2087311327",
+        "CNAME": "吳X銓",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1868174698",
+        "CNAME": "溫X富",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "196286599",
+        "CNAME": "鍾X豪",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "924654682",
+        "CNAME": "王X",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "677170077",
+        "CNAME": "王X榮",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "69120752",
+        "CNAME": "林X文",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "775663443",
+        "CNAME": "楊X成",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "交運管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1801032138",
+        "CNAME": "陳X童",
+        "SITE": "南科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1349304528",
+        "CNAME": "朱X萍",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "秘書",
+        "ID": "123"
+    },
+    {
+        "PERNR": "680045789",
+        "CNAME": "鄭X宏",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1292763487",
+        "CNAME": "林X國",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "物料企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "900097768",
+        "CNAME": "吳X憲",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1594105219",
+        "CNAME": "林X志",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "794687103",
+        "CNAME": "史X正",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "採購主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1516860178",
+        "CNAME": "翁X鋒",
+        "SITE": "寧波",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1991677287",
+        "CNAME": "黃X期",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "FAB生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "883471087",
+        "CNAME": "鄭X文",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理支援",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1964055746",
+        "CNAME": "王X強",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "285784814",
+        "CNAME": "余X男",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "元件生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1510424755",
+        "CNAME": "王X緯",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "交運管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "412568156",
+        "CNAME": "陳X丞",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "模組生產管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "168831435",
+        "CNAME": "鄭X賢",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "模組生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "210112727",
+        "CNAME": "蔡X",
+        "SITE": "南京",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "828736500",
+        "CNAME": "張X",
+        "SITE": "寧波",
+        "CATEGORY": null,
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "模組生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "43404312",
+        "CNAME": "蔡X澤",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "獲利管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1631465742",
+        "CNAME": "吳X宇",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1271564730",
+        "CNAME": "左X立",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1489696730",
+        "CNAME": "吳X明",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "928736402",
+        "CNAME": "鍾X凱",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TP製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1677102954",
+        "CNAME": "許X因",
+        "SITE": "寧波",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "210537000",
+        "CNAME": "柯X崎",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "916308352",
+        "CNAME": "陳X德",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "324653951",
+        "CNAME": "王X龍",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1393342169",
+        "CNAME": "羅X仁",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "元件製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1805256895",
+        "CNAME": "陳X明",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "913869711",
+        "CNAME": "鄭X監",
+        "SITE": "南京",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1320577898",
+        "CNAME": "黃X仙",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "採購主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "332100141",
+        "CNAME": "陳X傑",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1188188017",
+        "CNAME": "廖X宏",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "11024956",
+        "CNAME": "黃X賢",
+        "SITE": "南京",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "223619909",
+        "CNAME": "王X超",
+        "SITE": "南科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1395172488",
+        "CNAME": "楊X文",
+        "SITE": "竹科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "393851996",
+        "CNAME": "郭X祥",
+        "SITE": "寧波",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1713005762",
+        "CNAME": "羅X華",
+        "SITE": "佛山",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "278156159",
+        "CNAME": "朱X瑩",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "35117361",
+        "CNAME": "吳X村",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1547503036",
+        "CNAME": "蕭X穎",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "897678787",
+        "CNAME": "林X娟",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1188271991",
+        "CNAME": "黃X輝",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1265657349",
+        "CNAME": "張X豪",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "439733206",
+        "CNAME": "王X月",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "149525133",
+        "CNAME": "馮X霆",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2042496683",
+        "CNAME": "劉X光",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1554037694",
+        "CNAME": "趙X玲",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "總體規劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "736389986",
+        "CNAME": "陳X男",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1918479892",
+        "CNAME": "林X照",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1658061971",
+        "CNAME": "洪X盛",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1515033746",
+        "CNAME": "吳X勳",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "881250370",
+        "CNAME": "陳X賢",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1193187982",
+        "CNAME": "吳X壽",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "945039669",
+        "CNAME": "賴X烝",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1433450360",
+        "CNAME": "陳X銘",
+        "SITE": "南京",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "872295736",
+        "CNAME": "吳X苔",
+        "SITE": "南京",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "LAM製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1819685221",
+        "CNAME": "陳X倩",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "採購主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "469508789",
+        "CNAME": "劉X宏",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "376455135",
+        "CNAME": "陳X宇",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "575443817",
+        "CNAME": "杜X瑋",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "200763050",
+        "CNAME": "鍾X東",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1136913855",
+        "CNAME": "呂X彬",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "人資總務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "602990467",
+        "CNAME": "黃X富",
+        "SITE": "龍華",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "人資總務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "671099389",
+        "CNAME": "劉X中",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "FAB生產管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "551370946",
+        "CNAME": "林X超",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "交期企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "775867729",
+        "CNAME": "李X昌",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "274759858",
+        "CNAME": "段X建",
+        "SITE": "竹科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1286804846",
+        "CNAME": "陳X明",
+        "SITE": "南科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1164879315",
+        "CNAME": "林X琛",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "總體規劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1922463086",
+        "CNAME": "陳X賢",
+        "SITE": "寧波",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "644590612",
+        "CNAME": "楊X材",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "550580341",
+        "CNAME": "林X瑞",
+        "SITE": "佛山",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "會計主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "8286951",
+        "CNAME": "洪X亮",
+        "SITE": "佛山",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "83962706",
+        "CNAME": "林X仁",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "373885943",
+        "CNAME": "劉X芳",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "IE產能效能",
+        "ID": "123"
+    },
+    {
+        "PERNR": "301424739",
+        "CNAME": "張X一",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1810562700",
+        "CNAME": "吳X毅",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1237369748",
+        "CNAME": "郭X水",
+        "SITE": "南科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "61011867",
+        "CNAME": "鄭X清",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "物料企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1021295316",
+        "CNAME": "吳X豪",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "918099904",
+        "CNAME": "張X琳",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "656952183",
+        "CNAME": "賴X良",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "FAB生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2034260650",
+        "CNAME": "洪X佶",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1403291387",
+        "CNAME": "黃X儒",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1953027799",
+        "CNAME": "張X凱",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "FAB生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1598333418",
+        "CNAME": "李X聖",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2142483682",
+        "CNAME": "王X鉉",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1213468934",
+        "CNAME": "王X國",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "行銷",
+        "ID": "123"
+    },
+    {
+        "PERNR": "937653196",
+        "CNAME": "陳X隆",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "522876752",
+        "CNAME": "陳X博",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "721650422",
+        "CNAME": "潘X生",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1243496973",
+        "CNAME": "呂X哲",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2049184671",
+        "CNAME": "陳X德",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1607157191",
+        "CNAME": "邱X文",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "元件生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1346739986",
+        "CNAME": "黃X雄",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1908248579",
+        "CNAME": "梁X雯",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "585281524",
+        "CNAME": "阮X郎",
+        "SITE": "寧波",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "594557960",
+        "CNAME": "邱X銘",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "財務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2035845907",
+        "CNAME": "高X偉",
+        "SITE": "龍華",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "人資總務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1521141051",
+        "CNAME": "葉X政",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "LCD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1767736825",
+        "CNAME": "葉X仰",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "267232848",
+        "CNAME": "丁X群",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1718994318",
+        "CNAME": "李X洋",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "FAB生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2143500453",
+        "CNAME": "王X秋",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "製造品質整合",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1013471359",
+        "CNAME": "田X",
+        "SITE": "寧波",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "總體規劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "964453405",
+        "CNAME": "許X星",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "872963419",
+        "CNAME": "丁X",
+        "SITE": "寧波",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1109225276",
+        "CNAME": "李X恩",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "571153726",
+        "CNAME": "陳X福",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1132025621",
+        "CNAME": "郭X智",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1209216683",
+        "CNAME": "藍X昇",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "582315473",
+        "CNAME": "鄭X容",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "408496922",
+        "CNAME": "謝X洲",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1502643466",
+        "CNAME": "蔡X峰",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1804827560",
+        "CNAME": "劉X錕",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1691294514",
+        "CNAME": "黃X雯",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "採購主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1250136852",
+        "CNAME": "麥X魁",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "採購主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1347182727",
+        "CNAME": "林X貞",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "865555237",
+        "CNAME": "郭X峰",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1100521175",
+        "CNAME": "蕭X弘",
+        "SITE": "竹科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "780867694",
+        "CNAME": "彭X鵬",
+        "SITE": "竹科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1208774571",
+        "CNAME": "陳X真",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "物流規劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "349151650",
+        "CNAME": "范X玲",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "採購主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "642002563",
+        "CNAME": "高X嘉",
+        "SITE": "南京",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "模組物料管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1200812664",
+        "CNAME": "陳X娛",
+        "SITE": "南海",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質系統規劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1548577286",
+        "CNAME": "杜X益",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "交期企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "648879317",
+        "CNAME": "李X芸",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "總體規劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "548613407",
+        "CNAME": "謝X勳",
+        "SITE": "南科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "884706367",
+        "CNAME": "譚X莉",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "613121011",
+        "CNAME": "朱X怡",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "IE產能效能",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1863626862",
+        "CNAME": "彭X",
+        "SITE": "龍華",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1216004740",
+        "CNAME": "朱X寶",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TP製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1349007488",
+        "CNAME": "李X鴻",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "687354463",
+        "CNAME": "林X芬",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1401042138",
+        "CNAME": "林X龍",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "650867056",
+        "CNAME": "白X仁",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1085441512",
+        "CNAME": "郭X夏",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2038243844",
+        "CNAME": "楊X傑",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "389820028",
+        "CNAME": "鍾X鈞",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "988574394",
+        "CNAME": "沈X慶",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "725369999",
+        "CNAME": "簡X賢",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1033258406",
+        "CNAME": "林X輝",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "642315208",
+        "CNAME": "林X豐",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1953111222",
+        "CNAME": "李X元",
+        "SITE": "南京",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1461143716",
+        "CNAME": "鄭X淵",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "139334949",
+        "CNAME": "魏X能",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "835000051",
+        "CNAME": "黃X菊",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "546541205",
+        "CNAME": "丁X隆",
+        "SITE": "南科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1949813278",
+        "CNAME": "林X輝",
+        "SITE": "竹科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1802929119",
+        "CNAME": "李X弘",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "模組生產管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "658111727",
+        "CNAME": "李X娟",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1385582444",
+        "CNAME": "盧X強",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1876486370",
+        "CNAME": "楊X彥",
+        "SITE": "佛山",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "935324732",
+        "CNAME": "黃X章",
+        "SITE": "上海",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "進出口",
+        "ID": "123"
+    },
+    {
+        "PERNR": "740273357",
+        "CNAME": "邱X達",
+        "SITE": "龍華",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "558962254",
+        "CNAME": "曾X能",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "TFT製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2065564845",
+        "CNAME": "陳X宏",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "LCD製程整合",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1076991755",
+        "CNAME": "孔X雲",
+        "SITE": "寧波",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "942687789",
+        "CNAME": "許X傑",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "價格管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1612377720",
+        "CNAME": "鄧X松",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "前段製造工程類",
+        "POSITION": "自動化主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "315574088",
+        "CNAME": "王X文",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "324350012",
+        "CNAME": "陳X嘉",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "交期企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "224518909",
+        "CNAME": "楊X曄",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "FAB生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2105516362",
+        "CNAME": "方X晴",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1415882406",
+        "CNAME": "連X瑜",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2140695590",
+        "CNAME": "陳X如",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "技術研發類",
+        "POSITION": "產品管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1380791632",
+        "CNAME": "林X輝",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "元件製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1868626106",
+        "CNAME": "陳X璋",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "採購主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "101601328",
+        "CNAME": "呂X瑜",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1153960504",
+        "CNAME": "蔡X智",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "605853002",
+        "CNAME": "江X中",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1359376655",
+        "CNAME": "許X忠",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "品質管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "957362699",
+        "CNAME": "謝X宗",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2024464490",
+        "CNAME": "楊X文",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "物流規劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "375151176",
+        "CNAME": "陳X如",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務支援",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1895092935",
+        "CNAME": "趙X香",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務支援",
+        "ID": "123"
+    },
+    {
+        "PERNR": "566459363",
+        "CNAME": "戴X吟",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "543524075",
+        "CNAME": "林X成",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "工業工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1328342494",
+        "CNAME": "溫X森",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "採購主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1061477715",
+        "CNAME": "黃X儀",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "IE產能效能",
+        "ID": "123"
+    },
+    {
+        "PERNR": "713577235",
+        "CNAME": "李X兵",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "資訊管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "102338112",
+        "CNAME": "洪X惜",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "系統管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "746283776",
+        "CNAME": "陳X娟",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1229260895",
+        "CNAME": "李X昇",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "FAB生產管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2102492931",
+        "CNAME": "陳X玲",
+        "SITE": "南京",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "模組生產管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "478044418",
+        "CNAME": "方X欽",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務銷售",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1487002017",
+        "CNAME": "薛X成",
+        "SITE": "竹科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "413682756",
+        "CNAME": "溫X逸",
+        "SITE": "南京",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "2094564753",
+        "CNAME": "王X",
+        "SITE": "南京",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "模組生產管理",
+        "ID": "123"
+    },
+    {
+        "PERNR": "842079884",
+        "CNAME": "粘X記",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "732785858",
+        "CNAME": "吳X毅",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "供應鏈管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "8449757",
+        "CNAME": "歐X筱敏",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "營運企劃主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1095556055",
+        "CNAME": "許X榮",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "924925955",
+        "CNAME": "陳X彥",
+        "SITE": "寧波",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "673000306",
+        "CNAME": "魏X文",
+        "SITE": "佛山",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "401019987",
+        "CNAME": "江X儒",
+        "SITE": "南京",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "808739497",
+        "CNAME": "傅X遠",
+        "SITE": "南京",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "684282493",
+        "CNAME": "余X毅",
+        "SITE": "竹科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "537228816",
+        "CNAME": "謝X為",
+        "SITE": "南科",
+        "CATEGORY": "互動",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1467931773",
+        "CNAME": "楊X祥",
+        "SITE": "南科",
+        "CATEGORY": "主管群組",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "管理單位",
+        "ID": "123"
+    },
+    {
+        "PERNR": "906026964",
+        "CNAME": "宋X儒",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "FAB生產企劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1113857592",
+        "CNAME": "張X和",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "經營管理主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "444939877",
+        "CNAME": "張X源",
+        "SITE": "竹科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "經營管理類",
+        "POSITION": "會計主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "795852774",
+        "CNAME": "陳X能",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "後段製造工程類",
+        "POSITION": "MOD製造/工程主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1197076117",
+        "CNAME": "楊X僑",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "品質工程類",
+        "POSITION": "產品設計驗證",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1446218719",
+        "CNAME": "李X憲",
+        "SITE": "龍華",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "業務行銷類",
+        "POSITION": "業務主管",
+        "ID": "123"
+    },
+    {
+        "PERNR": "428219745",
+        "CNAME": "林X世",
+        "SITE": "南科",
+        "CATEGORY": "申請核准",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "總體規劃",
+        "ID": "123"
+    },
+    {
+        "PERNR": "1999505527",
+        "CNAME": "余X男",
+        "SITE": "南科",
+        "CATEGORY": "工作",
+        "ZJOBCODE3TXT": "生產管理類",
+        "POSITION": "元件生產企劃",
+        "ID": "123"
+    }
+]
