@@ -69,3 +69,21 @@ And the data are nothing special JSON format:
     },
     .......
 ```
+the funcion of header sorting could be set in the controller of the application:
+``` javascript
+$scope.categorySort = {
+	fn: function(item) { 
+		switch (item.CATEGORY) {
+			case '主管群組':
+				return 1;
+			case '工作':
+				return 0;
+			case '互動':
+				return 2;
+			default:
+				return 999;
+		}
+	},
+	desc: false
+};
+```
