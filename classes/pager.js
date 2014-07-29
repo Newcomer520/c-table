@@ -49,8 +49,8 @@ function pager(scope, paginateNumber, ItDomService) {
 			cp = cp || pager.currentPage;
 
 			currentPage = pager.currentPage = parseInt(cp);
-			if (scope.groups.row.disabled === true)
-				return;						
+			//if (scope.groups.row.disabled === true)
+				//return;						
 			scope.renderedRows = [];
 			for (i = (currentPage - 1) * pager.paginateNumber; i < currentPage * pager.paginateNumber && i < scope.rawRows.length; i++) {
 				scope.renderedRows.push(scope.rawRows[i]);		

@@ -108,7 +108,6 @@ function itGroupFactory($compile, ItDomService) {
 			,	values
 			,	newCondition //newCondition: should be the "current" condition, conditions should be generated before.
 			,	subBlock
-			,	ptrKey
 			,	$fieldBlock
 			,	$currentRow
 			,	$newRow
@@ -174,14 +173,25 @@ function itGroupFactory($compile, ItDomService) {
 					});
 				}
 			}
-			else if (angular.isDefined(currentKey.childKeys)) { //first key is null, but it contains children.
+			else if (angular.isDefined(currentKey.childKeys) && currentKey.childKeys.length > 0) { //first key is null, but it contains children.
 				_.each(currentKey.childKeys, function(childKey) {
 					subBlock = ItDomService.grSubBlock(undefined, ele);
 					recursiveGrDivs(scope, subBlock, ctrl, childKey, idx, conditions, ret);
 				});
 			}
 			else { //no any hierarchical structure, check if contains fields.
-				ptrKey = currentKey;
+				$newRow =ItDomService.grHeaderRow();
+				ele.append($newRow);
+				for (i = 0; i < scope.fieldRepeat; i++) {
+					tmp = ItDomService.grFields(currentKey, $newRow, idx, scope.fieldHidden, ret);
+				}
+				if (tmp.length == 0) {
+					subBlock.attr('base', true);								
+				}
+				ret = ret || {};
+				if (!angular.isDefined(ret.fields)) {//will define only one time								
+					ret.fields = tmp;
+				}
 			}
 
 			return ret;

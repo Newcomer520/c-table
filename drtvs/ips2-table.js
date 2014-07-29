@@ -202,26 +202,6 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						scope.$parent.$broadcast('refreshData');
 					});
 
-					function generateProperties(rendered, conditions) {
-						var hasFields = angular.isDefined(conditions.fields) && conditions.fields.length > 0
-						,	i;
-						_.each(conditions.conditions, function(condition, idx) {
-							if (hasFields) {
-								for (i = 0; i < conditions.fieldRepeat; i++) {
-									_.each(conditions.fields, function(field, fIdx) {
-										rendered.push(
-											new itProperty(idx * conditions.fieldRepeat + i, _.clone(condition), _.clone(field))
-										);
-									});
-								}
-							}
-							else {								
-								rendered.push(
-									new itProperty(idx, _.clone(condition))
-								);
-							}
-						});
-					}
 					function renderRows() {
 						var c
 						,	setAllConditions = true
@@ -246,12 +226,16 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						,	scaling
 						,	tmpRawsIn = { row: [], column: [] };
 
-						if (angular.isDefined(scope.groups['column']) && scope.groups['column'].hasFields()) {
+						if (angular.isDefined(scope.groups['column']) 
+							&& scope.groups['column'].disabled !== true
+							&& scope.groups['column'].hasFields()) {
 							i++;
 							mainType = 'column';
 						}
 							
-						if (angular.isDefined(scope.groups['row']) && scope.groups['row'].hasFields()) {
+						if (angular.isDefined(scope.groups['row']) 
+							&& scope.groups['row'].disabled !== true
+							&& scope.groups['row'].hasFields()) {
 							i++;
 							mainType = 'row';
 						}
@@ -265,32 +249,46 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						scope.groupMainType = mainType;
 						//scope.groupSubType = subType;
 						scope.reset();
-						mainProperties = [];
-						subProperties = [];
 						
 						subRendered = [];
-						generateProperties(mainProperties, scope.groups[mainType].conditions);
-						generateProperties(subProperties, scope.groups[subType].conditions);
 						mainConditions = scope.groups[mainType].conditions;
-						subConditions = scope.groups[subType].conditions;		
 						
-						if (scope.groups.row.disabled !== true && scope.groups.column.disabled != true) {
+						subConditions = scope.groups[subType].conditions;
+						if (mainConditions.conditions.length < 1) {
+							mainConditions.conditions = [ {dummy: true} ];
+						}
+						if (!angular.isDefined(subConditions)) {
+							subConditions = {
+								conditions: [ { nonCondition: true} ]
+							}
+						}
+
+						//if (scope.groups.row.disabled !== true && scope.groups.column.disabled != true) {
+						if (mainType == 'column') {
 							_.each(subConditions.conditions, function(sCondition, scIdx) { //loop each entity
 								//the length of rows should be the same with sub conditions, if the space of sub rendered rows is not enough, generate one more row in the same entity.
 								//therefore we need an array of entity.
 								//subRendered[scIdx].rows = angular.isDefined(subRendered[scIdx].rows) ? subRendered[scIdx].rows: [];
 
 								//for each condition in a repeated row, get its data all first.
-								subData = _.filter(tmpData, function(datum, dIdx) {
-									var gotData = true;
-									_.each(sCondition, function(c) { 
-										if (gotData == false)
-											return;
-										gotData = (datum[c.key] == c.value);
+
+								//non-condition=== true, means there are no sub conditions.
+								if (sCondition.nonCondition === true) {
+									subData = tmpData;
+								}
+								else {
+									subData = _.filter(tmpData, function(datum, dIdx) {
+										var gotData = true;
+										_.each(sCondition, function(c) { 
+											if (gotData == false)
+												return;
+											gotData = (datum[c.key] == c.value);
+										});
+										return gotData;
 									});
-									return gotData;
-								});
-								tmpData = _.without(tmpData, subData);				
+									tmpData = _.without(tmpData, subData);
+								}
+								
 								//need to consume all data
 								scaling = 0; //if loop while >=1 need to resize the sub block in the subgroup.
 								while (angular.isDefined(subData) && subData.length > 0) {
@@ -301,31 +299,35 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 											currentRow = [];
 										}
 										for (i = 0; i < mainConditions.fieldRepeat; i++) {
-											foundDatum = _.find(subData, function(datum) {
-												gotData = true;
-												_.each(mainCondition, function(mCondition) {
-													if (gotData == false)
-														return;
-													if (datum[mCondition.key] != mCondition.value) {
-														gotData = false;
-													}
-												});
-												return gotData;
-											});
+											//this if condition is for the case not grouping, but only fields.
+											if ( i == 0 || mainCondition.dummy !== true) {
+												foundDatum = _.find(subData, function(datum) {
+													gotData = true;																				
+													_.each(mainCondition, function(mCondition) {
+														if (gotData == false)
+															return;
+														if (datum[mCondition.key] != mCondition.value) {
+															gotData = false;
+														}
+													});
+													return gotData;
+												});	
+											}
+											
 
 											//filled with field value
 											_.each(mainConditions.fields, function(field, fIdx) {
 												//set columnIndex & rowIndex
 												if (mainType == 'column') {
-													columnIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + (i + fIdx);
+													columnIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + i *  mainConditions.fieldRepeat + fIdx;
 													rowIndex = scIdx;
 												}
 												else {//row
-													rowIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + (i + fIdx);
+													rowIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + i *  mainConditions.fieldRepeat + fIdx;
 													columnIndex = scIdx;
 												}
 
-												tmpObj = {id: 'cell_' + rowIndex + '_' + columnIndex, rowIndex: rowIndex, columnIndex: columnIndex };
+												tmpObj = {id: 'cell_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex };
 												if (angular.isDefined(foundDatum)) {
 													currentRow.push(_.extend({raw: foundDatum, value: foundDatum[field.id]}, tmpObj));
 													subData = _.without(subData, foundDatum);
@@ -344,6 +346,7 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 											});
 										}
 									});
+									
 									currentRow.headerInfo = {
 										rowIndex: sCondition.length - 1,
 										columnIndex: scIdx
@@ -516,15 +519,17 @@ function ips2TableController($scope) {
 		var w
 		,	h
 		,	subtotalRowObj;
-		if (rowIndex >= $scope.headers.row.length || columnIndex >= $scope.headers.column.length)
-			return undefined;
+		//if (rowIndex >= $scope.headers.row.length || columnIndex >= $scope.headers.column.length)
+			//return undefined;
 			//throw 'got something error internally';
 		if (!angular.isDefined(rowIndex) || !angular.isDefined(columnIndex))
 			return undefined;
 		if (!isAggregated) {
+			w = columnIndex < $scope.headers.column.length ? $scope.headers.column[columnIndex].width : undefined;
+			h = rowIndex < $scope.headers.row.length ? $scope.headers.row[rowIndex].height : undefined;
 			return {
-				width: $scope.headers.column[columnIndex].width,
-				height: $scope.headers.row[rowIndex].height,
+				width: w,
+				height: h,
 			}
 		}
 		else {//aggregated row
