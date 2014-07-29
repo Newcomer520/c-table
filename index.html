@@ -36,6 +36,18 @@
 				</div>
 			</div>
 		</div>
+		<div style="width:300px;height:300px;">
+			<div ips2-table data="data"  paginate="row" paginate-number="10">
+				<div it-group type="column" field-repeat="1" field-hidden="false">
+					<div it-key >
+						<div it-field field="POSITION" name="職位" style="background-color:pink;color:#fff;width:80px;">
+						</div>
+						<div it-field field="CNAME" name="姓名" style="background-color:pink;color:#fff;width:80px;">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 	<script>
 	var ctrlModule = angular.module('ctrl-module', ['ips2.table', 'category.service']);
