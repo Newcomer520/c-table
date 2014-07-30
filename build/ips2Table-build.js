@@ -8,7 +8,7 @@ angular.module("templates").run(["$templateCache", function($templateCache) {$te
 $templateCache.put("it-header-th.html","<div class=\"centerized\">\r\n	{{text}}\r\n</div>");
 $templateCache.put("it-pager.html","<div class=\"it-pager\">\r\n	<div class=\"pager-inner\">	\r\n		<div class=\"icon icon-first\" ng-click=\"pager.first()\"></div>\r\n		<div class=\"icon icon-previous\" ng-click=\"pager.previous()\"></div>\r\n		<div class=\"icon\" style=\"width:100px\">\r\n			<input ng-model=\"currentPage\" ng-change=\"currentPageChanged()\"/>\r\n			<span>/{{pager.totalPages()}}</span>\r\n		</div>\r\n		<div class=\"icon icon-next\" ng-click=\"pager.next()\"></div>\r\n		<div class=\"icon icon-last\" ng-click=\"pager.last()\" ng-style=\"isLast()\"></div>\r\n		<div class=\"icon\" style=\"width:130px;\">\r\n			<span>per page:</span>\r\n			<input ng-model=\"pager.paginateNumber\" ng-change=\"currentPageChanged()\" style=\"width:50px;\"/>\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("it-subtotal.html","<div class=\"it-header-sub-block it-header-subtotal\">	\r\n	<div it-th class=\"it-header-cell\">\r\n	</div>\r\n</div>");
-$templateCache.put("it-table.html","<div class=\"ips2-table\">\r\n	<div class=\"it-main-container\">\r\n		<div it-scroll-container=\"horizontal\"></div>\r\n		<div it-scroll-container=\"vertical\"></div>\r\n		<div class=\"inner-container\">\r\n			<div ng-transclude></div>			\r\n			<div it-grid-viewport class=\"it-grid\" ng-style=\"gridStyle()\">\r\n				<div class=\"grid-container\">\r\n					<div ng-repeat=\"row in renderedRows track by row.id\" on-finish-render>\r\n						<div class=\"it-grid-cell\" ng-repeat=\"cell in row track by cell.id\">\r\n							<div class=\"centerized-block\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)\">\r\n								{{cell.value}}\r\n								<div class=\"it-vertical-border right-border\"></div>\r\n								<div class=\"it-horizontal-border bottom-border\"></div>\r\n							</div>\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div>		\r\n		</div>\r\n	</div>\r\n</div>");
+$templateCache.put("it-table.html","<div class=\"ips2-table\">\r\n	<div class=\"it-main-container\">\r\n		<div it-scroll-container=\"horizontal\"></div>\r\n		<div it-scroll-container=\"vertical\"></div>\r\n		<div class=\"inner-container\">\r\n			<div ng-transclude></div>			\r\n			<div it-grid-viewport class=\"it-grid\" ng-style=\"gridStyle()\">				\r\n				<div class=\"grid-container\">\r\n					<div class=\"it-vertical-border left-border\"></div>\r\n					<div ng-repeat=\"row in renderedRows track by row.id\" on-finish-render>\r\n						<div class=\"it-grid-cell\" ng-repeat=\"cell in row track by cell.id\">\r\n							<div class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)\">\r\n								{{cell.value}}\r\n								<div class=\"it-vertical-border right-border\"></div>\r\n								<div class=\"it-horizontal-border bottom-border\"></div>\r\n							</div>\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div>		\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("itScrollContainer.html","\r\n<div class=\"scrollbar-area\">\r\n	<div class=\"scrollbar-area-inner\">\r\n		<div it-scrollbar class=\"scrollbar\">\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("sub-block.html","");}]);
 /*
@@ -714,7 +714,6 @@ function itGroupFactory($compile, ItDomService) {
 			,	values
 			,	newCondition //newCondition: should be the "current" condition, conditions should be generated before.
 			,	subBlock
-			,	ptrKey
 			,	$fieldBlock
 			,	$currentRow
 			,	$newRow
@@ -780,14 +779,25 @@ function itGroupFactory($compile, ItDomService) {
 					});
 				}
 			}
-			else if (angular.isDefined(currentKey.childKeys)) { //first key is null, but it contains children.
+			else if (angular.isDefined(currentKey.childKeys) && currentKey.childKeys.length > 0) { //first key is null, but it contains children.
 				_.each(currentKey.childKeys, function(childKey) {
 					subBlock = ItDomService.grSubBlock(undefined, ele);
 					recursiveGrDivs(scope, subBlock, ctrl, childKey, idx, conditions, ret);
 				});
 			}
 			else { //no any hierarchical structure, check if contains fields.
-				ptrKey = currentKey;
+				$newRow =ItDomService.grHeaderRow();
+				ele.append($newRow);
+				for (i = 0; i < scope.fieldRepeat; i++) {
+					tmp = ItDomService.grFields(currentKey, $newRow, idx, scope.fieldHidden, ret);
+				}
+				if (tmp.length == 0) {
+					subBlock.attr('base', true);								
+				}
+				ret = ret || {};
+				if (!angular.isDefined(ret.fields)) {//will define only one time								
+					ret.fields = tmp;
+				}
 			}
 
 			return ret;
@@ -1227,25 +1237,25 @@ function itScrollbarFactory($document, ItDomService) {
 						});
 					}					
 					$document.on('mousemove', function(event) {
-							var loc
-							,	shift
-							,	origin
-							,	currentMouse;
-							if (scope.scroller.isMousedown == false)
-								return;
-							origin = parseInt(ele.css(scope.scroller.cssSetting));
-							currentMouse = parseInt(event[scope.scroller.axe]); 
-							shift = parseInt(currentMouse - scope.scroller.previousMouse);						
-							loc = origin + shift;
-							loc = Math.min(loc + shift, scope.scroller.maxBoundary);
-							loc = Math.max(loc, 0);
-							shift = loc - origin;
+						var loc
+						,	shift
+						,	origin
+						,	currentMouse;
+						if (scope.scroller.isMousedown == false)
+							return;
+						origin = parseInt(ele.css(scope.scroller.cssSetting));
+						currentMouse = parseInt(event[scope.scroller.axe]); 
+						shift = parseInt(currentMouse - scope.scroller.previousMouse);						
+						loc = origin + shift;
+						loc = Math.min(loc + shift, scope.scroller.maxBoundary);
+						loc = Math.max(loc, 0);
+						shift = loc - origin;
 
-							if (loc == origin)
-								return;
-							ele.css(scope.scroller.cssSetting, loc + 'px');
-							scope.scroller.previousMouse = currentMouse;
-							scope.$emit('scroller', scope.scrollType, shift * scope.scroller.stepSize);
+						if (loc == origin)
+							return;
+						ele.css(scope.scroller.cssSetting, loc + 'px');
+						scope.scroller.previousMouse = currentMouse;
+						scope.$emit('scroller', scope.scrollType, shift * scope.scroller.stepSize, determineMouseWheel(loc));
 					});
 					$document.on('mouseup', function(event) {
 						
@@ -1265,7 +1275,7 @@ function itScrollbarFactory($document, ItDomService) {
 						if (pos == origin)
 							return;
 						ele.css(scope.scroller.cssSetting, pos + 'px');
-						scope.$emit('scroller', scope.scrollType, (pos - origin) * scope.scroller.stepSize);
+						scope.$emit('scroller', scope.scrollType, (pos - origin) * scope.scroller.stepSize, determineMouseWheel(pos));
 					}
 					scope.tick = function(isForward) {
 						var baseMovement = (isForward === true) ? 20 : -20
@@ -1274,6 +1284,15 @@ function itScrollbarFactory($document, ItDomService) {
 						pos = origin + baseMovement;
 						scope.moveTo(pos);
 						
+					}
+
+					function determineMouseWheel(pos) {
+						if (scope.scrollType != 'vertical')
+							return undefined;
+						var ret = {};
+						ret.canWheelUpGlobally = (pos == 0);
+						ret.canWheelDownGlobally = (pos == scope.scroller.maxBoundary);
+						return ret;
 					}
 				}
 			}
@@ -1452,14 +1471,16 @@ function pager(scope, paginateNumber, ItDomService) {
 			cp = cp || pager.currentPage;
 
 			currentPage = pager.currentPage = parseInt(cp);
-			if (scope.groups.row.disabled === true)
-				return;						
+			//if (scope.groups.row.disabled === true)
+				//return;						
 			scope.renderedRows = [];
 			for (i = (currentPage - 1) * pager.paginateNumber; i < currentPage * pager.paginateNumber && i < scope.rawRows.length; i++) {
 				scope.renderedRows.push(scope.rawRows[i]);		
 			}
-			scope.$parent.tmpDate = new Date();
-			scope.$parent.$broadcast('paginate', currentPage);
+			//scope.$parent.tmpDate = new Date();
+			//scope.$parent.$broadcast('paginate', currentPage);
+			scope.$$nextSibling.tmpDate = new Date();
+			scope.broadcast('paginate', currentPage);
 		},
 		totalPages: getTotalPages
 	}
@@ -1534,6 +1555,12 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 							'top': scope.gridPosition.top
 						}
 					}
+
+					scope.broadcast = function(arg) {
+						scope.$$nextSibling.$broadcast.apply(scope.$$nextSibling, arguments);
+						scope.$broadcast.apply(scope, arguments);
+					}
+
 					scope.isScrollbarHidden = function(scrollType) {
 						var overflow;
 						switch (scrollType) {
@@ -1561,20 +1588,20 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						switch (scrollType) {
 							case 'horizontal':
 								perFrame = $inner.width() - parseInt(scope.gridPosition.left);
-								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true)).width()))
+								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true), ele).width()))
 									w = minSize;
 								else
-									w = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true)).width())
+									w = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true), ele).width())
 								return {
 									'width': w 
 								}
 								break;
 							case 'vertical':
 								perFrame = $inner.height() - parseInt(scope.gridPosition.top);
-								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true)).height()))
+								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true), ele).height()))
 									h = minSize;
 								else
-									h = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true)).height())
+									h = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true), ele).height())
 								return {
 									'height': h
 								}
@@ -1599,15 +1626,15 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								break;
 						}
 						perFrame = $innerContainer[sizeFn]() - parseInt(scope.gridPosition[posFn]);
-						if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-viewport', true))[sizeFn]()))
+						if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]()))
 						{
 							s = minSize;
 						}
 						else
-							s = perFrame - parseInt($(ItDomService.getClassBy('grid-viewport', true), ele.parent())[sizeFn]());
+							s = perFrame - parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]());
 						if (s == minSize) {
 							step = parseInt(
-								($(ItDomService.getClassBy('grid-viewport', true), ele.parent())[sizeFn]() - perFrame) / (perFrame - s)
+								($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]() - perFrame) / (perFrame - s)
 							) + 1;
 						}
 						else
@@ -1615,7 +1642,7 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						return step;
 					}
 
-					scope.$on('scroller', function(event, scrollType, shift) {
+					scope.$on('scroller', function(event, scrollType, shift, mousewheelInfo) {
 						var $inner = $(ItDomService.getClassBy('inner-container', true), ele)
 						,	perFrame
 						,	$grid = $(ItDomService.getClassBy('grid-container', true), ele)
@@ -1625,13 +1652,17 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								posFn = 'left';								
 								break;
 							case 'vertical':
+								if (angular.isDefined(mousewheelInfo)) {
+									scope.mousewheelInfo.canWheelUp = mousewheelInfo.canWheelUpGlobally;
+									scope.mousewheelInfo.canWheelDown = mousewheelInfo.canWheelDownGlobally;
+								}
 								posFn = 'top';
 								break;
 						}
 						$grid.css(posFn, (parseInt($grid.css(posFn)) - shift) + 'px');
-						scope.$parent.$broadcast('scroll_' + scrollType, shift);
+						scope.$$nextSibling.$broadcast('scroll_' + scrollType, shift);
 					});
-					scope.$on('scrollTo', function(event, scrollType, pos) {
+					scope.$on('scrollTo', function(event, scrollType, pos, mousewheelInfo) {
 						var posFn
 						,	$grid = $(ItDomService.getClassBy('grid-container', true), ele);
 						switch(scrollType) {
@@ -1639,23 +1670,39 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								posFn = 'left';
 								break;
 							case 'vertical':
+								if (angular.isDefined(mousewheelInfo)) {
+									scope.mousewheelInfo.canWheelUp = mousewheelInfo.canWheelUpGlobally;
+									scope.mousewheelInfo.canWheelDown = mousewheelInfo.canWheelDownGlobally;	
+								}
 								posFn = 'top';
 								break;
 						}
 						$grid.css(posFn, pos);
-						scope.$parent.$broadcast('scrollTo_' + scrollType, pos);
+						//scope.$parent.$broadcast('scrollTo_' + scrollType, pos);
+						scope.$$nextSibling.$broadcast('scrollTo_' + scrollType, pos);
 					});
 					scope.$on('ngRepeatFinished', function(event) {
-						scope.$parent.$broadcast('rowsRendered');
+						//scope.$parent.$broadcast('rowsRendered');
+						scope.broadcast('rowsRendered');
 						//alert(new Date() - scope.$parent.tmpDate);
 					});
 
 					ele.on('mousewheel', function(e) {						
 						if (scope.isScrollbarHidden('vertical') == false) {
 							scope.$apply(function() {
-								scope.$parent.$broadcast('mousewheel', e);
+								//scope.$parent.$broadcast('mousewheel', e);
+								scope.$broadcast('mousewheel', e);
 							});
-							
+							if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+								//scroll up
+								if (scope.mousewheelInfo.canWheelUp === true)
+									return;
+							}
+							else {
+								//scroll down
+								if (scope.mousewheelInfo.canWheelDown === true)
+									return;								
+							}
 							e.stopPropagation();
 							return false;
 						}
@@ -1675,29 +1722,10 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 					scope.$watch('data', function(newVal) {
 						if(!angular.isDefined(scope.data))
 							return;
-						scope.$parent.$broadcast('refreshData');
+						//scope.$parent.$broadcast('refreshData');
+						scope.$$nextSibling.$broadcast('refreshData');
 					});
 
-					function generateProperties(rendered, conditions) {
-						var hasFields = angular.isDefined(conditions.fields) && conditions.fields.length > 0
-						,	i;
-						_.each(conditions.conditions, function(condition, idx) {
-							if (hasFields) {
-								for (i = 0; i < conditions.fieldRepeat; i++) {
-									_.each(conditions.fields, function(field, fIdx) {
-										rendered.push(
-											new itProperty(idx * conditions.fieldRepeat + i, _.clone(condition), _.clone(field))
-										);
-									});
-								}
-							}
-							else {								
-								rendered.push(
-									new itProperty(idx, _.clone(condition))
-								);
-							}
-						});
-					}
 					function renderRows() {
 						var c
 						,	setAllConditions = true
@@ -1722,12 +1750,16 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						,	scaling
 						,	tmpRawsIn = { row: [], column: [] };
 
-						if (angular.isDefined(scope.groups['column']) && scope.groups['column'].hasFields()) {
+						if (angular.isDefined(scope.groups['column']) 
+							&& scope.groups['column'].disabled !== true
+							&& scope.groups['column'].hasFields()) {
 							i++;
 							mainType = 'column';
 						}
 							
-						if (angular.isDefined(scope.groups['row']) && scope.groups['row'].hasFields()) {
+						if (angular.isDefined(scope.groups['row']) 
+							&& scope.groups['row'].disabled !== true
+							&& scope.groups['row'].hasFields()) {
 							i++;
 							mainType = 'row';
 						}
@@ -1741,32 +1773,46 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						scope.groupMainType = mainType;
 						//scope.groupSubType = subType;
 						scope.reset();
-						mainProperties = [];
-						subProperties = [];
 						
 						subRendered = [];
-						generateProperties(mainProperties, scope.groups[mainType].conditions);
-						generateProperties(subProperties, scope.groups[subType].conditions);
 						mainConditions = scope.groups[mainType].conditions;
-						subConditions = scope.groups[subType].conditions;		
 						
-						if (scope.groups.row.disabled !== true && scope.groups.column.disabled != true) {
+						subConditions = scope.groups[subType].conditions;
+						if (mainConditions.conditions.length < 1) {
+							mainConditions.conditions = [ {dummy: true} ];
+						}
+						if (!angular.isDefined(subConditions)) {
+							subConditions = {
+								conditions: [ { nonCondition: true} ]
+							}
+						}
+
+						//if (scope.groups.row.disabled !== true && scope.groups.column.disabled != true) {
+						if (mainType == 'column') {
 							_.each(subConditions.conditions, function(sCondition, scIdx) { //loop each entity
 								//the length of rows should be the same with sub conditions, if the space of sub rendered rows is not enough, generate one more row in the same entity.
 								//therefore we need an array of entity.
 								//subRendered[scIdx].rows = angular.isDefined(subRendered[scIdx].rows) ? subRendered[scIdx].rows: [];
 
 								//for each condition in a repeated row, get its data all first.
-								subData = _.filter(tmpData, function(datum, dIdx) {
-									var gotData = true;
-									_.each(sCondition, function(c) { 
-										if (gotData == false)
-											return;
-										gotData = (datum[c.key] == c.value);
+
+								//non-condition=== true, means there are no sub conditions.
+								if (sCondition.nonCondition === true) {
+									subData = tmpData;
+								}
+								else {
+									subData = _.filter(tmpData, function(datum, dIdx) {
+										var gotData = true;
+										_.each(sCondition, function(c) { 
+											if (gotData == false)
+												return;
+											gotData = (datum[c.key] == c.value);
+										});
+										return gotData;
 									});
-									return gotData;
-								});
-								tmpData = _.without(tmpData, subData);				
+									tmpData = _.without(tmpData, subData);
+								}
+								
 								//need to consume all data
 								scaling = 0; //if loop while >=1 need to resize the sub block in the subgroup.
 								while (angular.isDefined(subData) && subData.length > 0) {
@@ -1777,31 +1823,35 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 											currentRow = [];
 										}
 										for (i = 0; i < mainConditions.fieldRepeat; i++) {
-											foundDatum = _.find(subData, function(datum) {
-												gotData = true;
-												_.each(mainCondition, function(mCondition) {
-													if (gotData == false)
-														return;
-													if (datum[mCondition.key] != mCondition.value) {
-														gotData = false;
-													}
-												});
-												return gotData;
-											});
+											//this if condition is for the case not grouping, but only fields.
+											if ( i == 0 || mainCondition.dummy !== true) {
+												foundDatum = _.find(subData, function(datum) {
+													gotData = true;																				
+													_.each(mainCondition, function(mCondition) {
+														if (gotData == false)
+															return;
+														if (datum[mCondition.key] != mCondition.value) {
+															gotData = false;
+														}
+													});
+													return gotData;
+												});	
+											}
+											
 
 											//filled with field value
 											_.each(mainConditions.fields, function(field, fIdx) {
 												//set columnIndex & rowIndex
 												if (mainType == 'column') {
-													columnIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + (i + fIdx);
+													columnIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + i *  mainConditions.fields.length + fIdx;
 													rowIndex = scIdx;
 												}
 												else {//row
-													rowIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + (i + fIdx);
+													rowIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + i *  mainConditions.fields.length + fIdx;
 													columnIndex = scIdx;
 												}
 
-												tmpObj = {id: 'cell_' + rowIndex + '_' + columnIndex, rowIndex: rowIndex, columnIndex: columnIndex };
+												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex };
 												if (angular.isDefined(foundDatum)) {
 													currentRow.push(_.extend({raw: foundDatum, value: foundDatum[field.id]}, tmpObj));
 													subData = _.without(subData, foundDatum);
@@ -1820,6 +1870,7 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 											});
 										}
 									});
+									
 									currentRow.headerInfo = {
 										rowIndex: sCondition.length - 1,
 										columnIndex: scIdx
@@ -1827,7 +1878,7 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 									//currentRow.rowIndex = sCondition.length - 1;
 									//currentRow.columnIndex = scIdx;
 									currentRow.subCondition = sCondition;
-									currentRow.id = ++scope._rowId;
+									currentRow.id = scope.$id + '_' + (++scope._rowId);
 									scope.rawRows.push(currentRow);
 								}
 							});
@@ -1837,13 +1888,15 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 							for (i = 0; i < tmpRawsIn[key].length; i++) {
 								if (!angular.isDefined(tmpRawsIn[key][i]))
 									continue;
-								scope.$parent.$broadcast(ItDomService.EventNameofHeaderRawData(key, i), tmpRawsIn[key][i]);
+								//scope.$parent.$broadcast(ItDomService.EventNameofHeaderRawData(key, i), tmpRawsIn[key][i]);
+								scope.$$nextSibling.$broadcast(ItDomService.EventNameofHeaderRawData(key, i), tmpRawsIn[key][i]);
 							}
 						}
 						ctrl.draw();
 					}
 
-					scope.$parent.$on('groupDone', function(event, groupType, groupStyle, keys, conditions) {
+					//scope.$parent.$on('groupDone', function(event, groupType, groupStyle, keys, conditions) {
+					scope.$$nextSibling.$on('groupDone', function(event, groupType, groupStyle, keys, conditions) {
 						scope.gridPosition.width = scope.gridPosition.width || 0;
 						scope.gridPosition.height = scope.gridPosition.height || 0;
 
@@ -1869,10 +1922,11 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						}
 						//render rows if we got both groups
 						renderRows();
-						scope.$parent.$broadcast('refreshGroup', scope.gridPosition);
+						scope.$$nextSibling.$broadcast('refreshGroup', scope.gridPosition);
 					});
-
-					scope.$parent.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
+					
+					scope.$$nextSibling.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
+					//scope.$parent.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
 						var localRows
 						,	aggRow = []
 						,	atIndex
@@ -1937,11 +1991,10 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								aggRow.push({value: agg.aggregation, rowIndex: rowIndexForSubtotal, columnIndex: idx});
 							});	
 						}
-						aggRow.id = rowId;//++scope._rowId;
+						aggRow.id = scope.$id + '_' + rowId;//++scope._rowId;
 						aggRow.isAggregated = true;
 						
 						ctrl.setCellSize('row', rowIndex, columnIndex, eleWidth, eleHeight, true);
-						//ctrl.setCellSize(groupType, lastRowIndex, atIndex, eleWidth, eleHeight, true);
 						scope.renderedRows.splice(atIndex, 0, aggRow);
 					});
 				}
@@ -1976,6 +2029,12 @@ function ips2TableController($scope) {
 	$scope.headers.column.subtotal = [];
 	$scope.headers.row.subtotal = [];
 
+	//initial setting of mouse wheel.
+	$scope.mousewheelInfo = {
+		canWheelUp: true,
+		canWheelDown: false
+	};
+
 	$scope.gridStyle = function() {
 		return {
 			left: $scope.gridPosition.left,
@@ -1992,15 +2051,17 @@ function ips2TableController($scope) {
 		var w
 		,	h
 		,	subtotalRowObj;
-		if (rowIndex >= $scope.headers.row.length || columnIndex >= $scope.headers.column.length)
-			return undefined;
+		//if (rowIndex >= $scope.headers.row.length || columnIndex >= $scope.headers.column.length)
+			//return undefined;
 			//throw 'got something error internally';
 		if (!angular.isDefined(rowIndex) || !angular.isDefined(columnIndex))
 			return undefined;
 		if (!isAggregated) {
+			w = columnIndex < $scope.headers.column.length ? $scope.headers.column[columnIndex].width : undefined;
+			h = rowIndex < $scope.headers.row.length ? $scope.headers.row[rowIndex].height : undefined;
 			return {
-				width: $scope.headers.column[columnIndex].width,
-				height: $scope.headers.row[rowIndex].height,
+				width: w,
+				height: h,
 			}
 		}
 		else {//aggregated row
@@ -2162,19 +2223,7 @@ function ips2TableController($scope) {
 		$scope.pager.paginate();
 		
 	}	
-}
-
-/*itDrtv.directive('itTest', itTestFactory);
-function itTestFactory() {
-	return {
-		link: function(scope, ele, attrs, ctrl) {
-			if (scope.$first)
-				scope.$emit('renderedRowsEvent', 0);
-			if (scope.$last)
-				scope.$emit('renderedRowsEvent', 1);
-		}
-	}
-}*/;
+};
 if (typeof define === 'function' && define.amd) {
 	define('ips2Table', [], function() {
 		return itDrtv;
