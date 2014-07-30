@@ -1,6 +1,7 @@
 itDrtv.directive('itScrollContainer', itScrollContainerFactory);
 
-function itScrollContainerFactory() {
+itScrollContainerFactory.$inject = ['$window'];
+function itScrollContainerFactory($window) {
 	return {
 		replace: 'false',
 		require: '^ips2Table',
@@ -32,7 +33,7 @@ function itScrollContainerFactory() {
 
 					scope.reset();
 					scope.$on('rowsRendered', scope.reset);
-					
+					angular.element($window).on('resize', scope.reset);
 					ele.on('mousedown', function(event) {
 						scope.$apply(function() {
 							scope.$broadcast('mousedownHere', event);

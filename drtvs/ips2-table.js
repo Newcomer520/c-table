@@ -1,8 +1,8 @@
 itDrtv.directive('ips2Table', ips2TableFactory);
 
 
-ips2TableFactory.$inject = ['ItDomService', '$compile', '$document'];
-function ips2TableFactory(ItDomService, $compile, $document) {
+ips2TableFactory.$inject = ['ItDomService', '$compile', '$document', '$window'];
+function ips2TableFactory(ItDomService, $compile, $document, $window) {
 	return {
 		restrict: 'EA',
 		replace: true,
@@ -30,8 +30,14 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 					);
 
 					scope.baseWidth = ele.width();
-					scope.baseHeight = ele.height();					
-
+					scope.baseHeight = ele.height();
+					$($window).on('resize', function() {
+						var $mainContainer = $(ItDomService.getClassBy('main-container', true), ele)
+						,	pagerHeight = 50;
+						scope.baseWidth = ele.width();
+						scope.baseHeight = ele.height();
+						$mainContainer.height(scope.baseHeight - pagerHeight - paddingVertical);
+					});
 					//with pager.
 					scope.equipPager = function() {
 						var $mainContainer = $(ItDomService.getClassBy('main-container', true), ele)

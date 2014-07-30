@@ -3,7 +3,7 @@ itDrtv.directive('itPager', itPagerFactory);
 function itPagerFactory() {
 	return {
 		restrict: 'EA',
-		replace: false,
+		replace: true,
 		require: '^ips2Table',
 		scope: true,
 		templateUrl: 'it-pager.html',
