@@ -181,13 +181,11 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								break;
 						}
 						$grid.css(posFn, pos);
-						//scope.$parent.$broadcast('scrollTo_' + scrollType, pos);
 						scope.$$nextSibling.$broadcast('scrollTo_' + scrollType, pos);
 					});
 					scope.$on('ngRepeatFinished', function(event) {
-						//scope.$parent.$broadcast('rowsRendered');
 						scope.broadcast('rowsRendered');
-						//alert(new Date() - scope.$parent.tmpDate);
+						//alert(new Date() - scope.$$nextSibling.tmpDate);
 					});
 
 					ele.on('mousewheel', function(e) {						

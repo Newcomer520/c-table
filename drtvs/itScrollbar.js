@@ -1,7 +1,7 @@
 itDrtv.directive('itScrollbar', itScrollbarFactory);
 
-itScrollbarFactory.$inject = ['$document', 'ItDomService']
-function itScrollbarFactory($document, ItDomService) {
+itScrollbarFactory.$inject = ['$document', 'ItDomService', '$window']
+function itScrollbarFactory($document, ItDomService, $window) {
 	return {
 		scope: true,
 		compile: function(tEle, tAttrs, transcludeFn) {
@@ -46,16 +46,10 @@ function itScrollbarFactory($document, ItDomService) {
 						scope.reset();
 						scope.$emit('scrollTo', scope.scrollType, '0px');						
 					});
-					if (scope.scrollType == 'vertical') {
-						scope.$on('mousewheel', function(event, isDownward) {
-							if (isDownward === true) {
 
-							}
-							else {
-
-							}
-						});
-					}
+					angular.element($window).bind('resize', function() {						
+						scope.$apply(scope.reset);
+					});
 				},
 				post: function(scope, ele, attrs, ctrl) {					
 

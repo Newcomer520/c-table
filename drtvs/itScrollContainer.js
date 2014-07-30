@@ -32,6 +32,7 @@ function itScrollContainerFactory() {
 
 					scope.reset();
 					scope.$on('rowsRendered', scope.reset);
+					
 					ele.on('mousedown', function(event) {
 						scope.$apply(function() {
 							scope.$broadcast('mousedownHere', event);
