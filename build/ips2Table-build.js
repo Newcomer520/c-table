@@ -1151,8 +1151,8 @@ function itPagerFactory() {
 };
 itDrtv.directive('itScrollbar', itScrollbarFactory);
 
-itScrollbarFactory.$inject = ['$document', 'ItDomService']
-function itScrollbarFactory($document, ItDomService) {
+itScrollbarFactory.$inject = ['$document', 'ItDomService', '$window']
+function itScrollbarFactory($document, ItDomService, $window) {
 	return {
 		scope: true,
 		compile: function(tEle, tAttrs, transcludeFn) {
@@ -1197,16 +1197,10 @@ function itScrollbarFactory($document, ItDomService) {
 						scope.reset();
 						scope.$emit('scrollTo', scope.scrollType, '0px');						
 					});
-					if (scope.scrollType == 'vertical') {
-						scope.$on('mousewheel', function(event, isDownward) {
-							if (isDownward === true) {
 
-							}
-							else {
-
-							}
-						});
-					}
+					angular.element($window).bind('resize', function() {						
+						scope.$apply(scope.reset);
+					});
 				},
 				post: function(scope, ele, attrs, ctrl) {					
 
@@ -1360,6 +1354,7 @@ function itScrollContainerFactory() {
 
 					scope.reset();
 					scope.$on('rowsRendered', scope.reset);
+					
 					ele.on('mousedown', function(event) {
 						scope.$apply(function() {
 							scope.$broadcast('mousedownHere', event);
@@ -1678,13 +1673,11 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								break;
 						}
 						$grid.css(posFn, pos);
-						//scope.$parent.$broadcast('scrollTo_' + scrollType, pos);
 						scope.$$nextSibling.$broadcast('scrollTo_' + scrollType, pos);
 					});
 					scope.$on('ngRepeatFinished', function(event) {
-						//scope.$parent.$broadcast('rowsRendered');
 						scope.broadcast('rowsRendered');
-						//alert(new Date() - scope.$parent.tmpDate);
+						//alert(new Date() - scope.$$nextSibling.tmpDate);
 					});
 
 					ele.on('mousewheel', function(e) {						
