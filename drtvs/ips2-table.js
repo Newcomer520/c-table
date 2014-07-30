@@ -58,6 +58,12 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 							'top': scope.gridPosition.top
 						}
 					}
+
+					scope.broadcast = function(arg) {
+						scope.$$nextSibling.$broadcast.apply(scope.$$nextSibling, arguments);
+						scope.$broadcast.apply(scope, arguments);
+					}
+
 					scope.isScrollbarHidden = function(scrollType) {
 						var overflow;
 						switch (scrollType) {
@@ -85,20 +91,20 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						switch (scrollType) {
 							case 'horizontal':
 								perFrame = $inner.width() - parseInt(scope.gridPosition.left);
-								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true)).width()))
+								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true), ele).width()))
 									w = minSize;
 								else
-									w = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true)).width())
+									w = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true), ele).width())
 								return {
 									'width': w 
 								}
 								break;
 							case 'vertical':
 								perFrame = $inner.height() - parseInt(scope.gridPosition.top);
-								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true)).height()))
+								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true), ele).height()))
 									h = minSize;
 								else
-									h = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true)).height())
+									h = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true), ele).height())
 								return {
 									'height': h
 								}
@@ -123,15 +129,15 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								break;
 						}
 						perFrame = $innerContainer[sizeFn]() - parseInt(scope.gridPosition[posFn]);
-						if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-viewport', true))[sizeFn]()))
+						if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]()))
 						{
 							s = minSize;
 						}
 						else
-							s = perFrame - parseInt($(ItDomService.getClassBy('grid-viewport', true), ele.parent())[sizeFn]());
+							s = perFrame - parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]());
 						if (s == minSize) {
 							step = parseInt(
-								($(ItDomService.getClassBy('grid-viewport', true), ele.parent())[sizeFn]() - perFrame) / (perFrame - s)
+								($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]() - perFrame) / (perFrame - s)
 							) + 1;
 						}
 						else
@@ -139,7 +145,7 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						return step;
 					}
 
-					scope.$on('scroller', function(event, scrollType, shift) {
+					scope.$on('scroller', function(event, scrollType, shift, mousewheelInfo) {
 						var $inner = $(ItDomService.getClassBy('inner-container', true), ele)
 						,	perFrame
 						,	$grid = $(ItDomService.getClassBy('grid-container', true), ele)
@@ -149,13 +155,17 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								posFn = 'left';								
 								break;
 							case 'vertical':
+								if (angular.isDefined(mousewheelInfo)) {
+									scope.mousewheelInfo.canWheelUp = mousewheelInfo.canWheelUpGlobally;
+									scope.mousewheelInfo.canWheelDown = mousewheelInfo.canWheelDownGlobally;
+								}
 								posFn = 'top';
 								break;
 						}
 						$grid.css(posFn, (parseInt($grid.css(posFn)) - shift) + 'px');
-						scope.$parent.$broadcast('scroll_' + scrollType, shift);
+						scope.$$nextSibling.$broadcast('scroll_' + scrollType, shift);
 					});
-					scope.$on('scrollTo', function(event, scrollType, pos) {
+					scope.$on('scrollTo', function(event, scrollType, pos, mousewheelInfo) {
 						var posFn
 						,	$grid = $(ItDomService.getClassBy('grid-container', true), ele);
 						switch(scrollType) {
@@ -163,23 +173,39 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								posFn = 'left';
 								break;
 							case 'vertical':
+								if (angular.isDefined(mousewheelInfo)) {
+									scope.mousewheelInfo.canWheelUp = mousewheelInfo.canWheelUpGlobally;
+									scope.mousewheelInfo.canWheelDown = mousewheelInfo.canWheelDownGlobally;	
+								}
 								posFn = 'top';
 								break;
 						}
 						$grid.css(posFn, pos);
-						scope.$parent.$broadcast('scrollTo_' + scrollType, pos);
+						//scope.$parent.$broadcast('scrollTo_' + scrollType, pos);
+						scope.$$nextSibling.$broadcast('scrollTo_' + scrollType, pos);
 					});
 					scope.$on('ngRepeatFinished', function(event) {
-						scope.$parent.$broadcast('rowsRendered');
+						//scope.$parent.$broadcast('rowsRendered');
+						scope.broadcast('rowsRendered');
 						//alert(new Date() - scope.$parent.tmpDate);
 					});
 
 					ele.on('mousewheel', function(e) {						
 						if (scope.isScrollbarHidden('vertical') == false) {
 							scope.$apply(function() {
-								scope.$parent.$broadcast('mousewheel', e);
+								//scope.$parent.$broadcast('mousewheel', e);
+								scope.$broadcast('mousewheel', e);
 							});
-							
+							if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+								//scroll up
+								if (scope.mousewheelInfo.canWheelUp === true)
+									return;
+							}
+							else {
+								//scroll down
+								if (scope.mousewheelInfo.canWheelDown === true)
+									return;								
+							}
 							e.stopPropagation();
 							return false;
 						}
@@ -199,7 +225,8 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 					scope.$watch('data', function(newVal) {
 						if(!angular.isDefined(scope.data))
 							return;
-						scope.$parent.$broadcast('refreshData');
+						//scope.$parent.$broadcast('refreshData');
+						scope.$$nextSibling.$broadcast('refreshData');
 					});
 
 					function renderRows() {
@@ -319,15 +346,15 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 											_.each(mainConditions.fields, function(field, fIdx) {
 												//set columnIndex & rowIndex
 												if (mainType == 'column') {
-													columnIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + i *  mainConditions.fieldRepeat + fIdx;
+													columnIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + i *  mainConditions.fields.length + fIdx;
 													rowIndex = scIdx;
 												}
 												else {//row
-													rowIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + i *  mainConditions.fieldRepeat + fIdx;
+													rowIndex = mIdx * mainConditions.fieldRepeat * mainConditions.fields.length + i *  mainConditions.fields.length + fIdx;
 													columnIndex = scIdx;
 												}
 
-												tmpObj = {id: 'cell_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex };
+												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex };
 												if (angular.isDefined(foundDatum)) {
 													currentRow.push(_.extend({raw: foundDatum, value: foundDatum[field.id]}, tmpObj));
 													subData = _.without(subData, foundDatum);
@@ -354,7 +381,7 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 									//currentRow.rowIndex = sCondition.length - 1;
 									//currentRow.columnIndex = scIdx;
 									currentRow.subCondition = sCondition;
-									currentRow.id = ++scope._rowId;
+									currentRow.id = scope.$id + '_' + (++scope._rowId);
 									scope.rawRows.push(currentRow);
 								}
 							});
@@ -364,13 +391,15 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 							for (i = 0; i < tmpRawsIn[key].length; i++) {
 								if (!angular.isDefined(tmpRawsIn[key][i]))
 									continue;
-								scope.$parent.$broadcast(ItDomService.EventNameofHeaderRawData(key, i), tmpRawsIn[key][i]);
+								//scope.$parent.$broadcast(ItDomService.EventNameofHeaderRawData(key, i), tmpRawsIn[key][i]);
+								scope.$$nextSibling.$broadcast(ItDomService.EventNameofHeaderRawData(key, i), tmpRawsIn[key][i]);
 							}
 						}
 						ctrl.draw();
 					}
 
-					scope.$parent.$on('groupDone', function(event, groupType, groupStyle, keys, conditions) {
+					//scope.$parent.$on('groupDone', function(event, groupType, groupStyle, keys, conditions) {
+					scope.$$nextSibling.$on('groupDone', function(event, groupType, groupStyle, keys, conditions) {
 						scope.gridPosition.width = scope.gridPosition.width || 0;
 						scope.gridPosition.height = scope.gridPosition.height || 0;
 
@@ -396,10 +425,11 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 						}
 						//render rows if we got both groups
 						renderRows();
-						scope.$parent.$broadcast('refreshGroup', scope.gridPosition);
+						scope.$$nextSibling.$broadcast('refreshGroup', scope.gridPosition);
 					});
-
-					scope.$parent.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
+					
+					scope.$$nextSibling.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
+					//scope.$parent.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
 						var localRows
 						,	aggRow = []
 						,	atIndex
@@ -464,11 +494,10 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 								aggRow.push({value: agg.aggregation, rowIndex: rowIndexForSubtotal, columnIndex: idx});
 							});	
 						}
-						aggRow.id = rowId;//++scope._rowId;
+						aggRow.id = scope.$id + '_' + rowId;//++scope._rowId;
 						aggRow.isAggregated = true;
 						
 						ctrl.setCellSize('row', rowIndex, columnIndex, eleWidth, eleHeight, true);
-						//ctrl.setCellSize(groupType, lastRowIndex, atIndex, eleWidth, eleHeight, true);
 						scope.renderedRows.splice(atIndex, 0, aggRow);
 					});
 				}
@@ -502,6 +531,12 @@ function ips2TableController($scope) {
 	};
 	$scope.headers.column.subtotal = [];
 	$scope.headers.row.subtotal = [];
+
+	//initial setting of mouse wheel.
+	$scope.mousewheelInfo = {
+		canWheelUp: true,
+		canWheelDown: false
+	};
 
 	$scope.gridStyle = function() {
 		return {
@@ -692,15 +727,3 @@ function ips2TableController($scope) {
 		
 	}	
 }
-
-/*itDrtv.directive('itTest', itTestFactory);
-function itTestFactory() {
-	return {
-		link: function(scope, ele, attrs, ctrl) {
-			if (scope.$first)
-				scope.$emit('renderedRowsEvent', 0);
-			if (scope.$last)
-				scope.$emit('renderedRowsEvent', 1);
-		}
-	}
-}*/

@@ -86,25 +86,25 @@ function itScrollbarFactory($document, ItDomService) {
 						});
 					}					
 					$document.on('mousemove', function(event) {
-							var loc
-							,	shift
-							,	origin
-							,	currentMouse;
-							if (scope.scroller.isMousedown == false)
-								return;
-							origin = parseInt(ele.css(scope.scroller.cssSetting));
-							currentMouse = parseInt(event[scope.scroller.axe]); 
-							shift = parseInt(currentMouse - scope.scroller.previousMouse);						
-							loc = origin + shift;
-							loc = Math.min(loc + shift, scope.scroller.maxBoundary);
-							loc = Math.max(loc, 0);
-							shift = loc - origin;
+						var loc
+						,	shift
+						,	origin
+						,	currentMouse;
+						if (scope.scroller.isMousedown == false)
+							return;
+						origin = parseInt(ele.css(scope.scroller.cssSetting));
+						currentMouse = parseInt(event[scope.scroller.axe]); 
+						shift = parseInt(currentMouse - scope.scroller.previousMouse);						
+						loc = origin + shift;
+						loc = Math.min(loc + shift, scope.scroller.maxBoundary);
+						loc = Math.max(loc, 0);
+						shift = loc - origin;
 
-							if (loc == origin)
-								return;
-							ele.css(scope.scroller.cssSetting, loc + 'px');
-							scope.scroller.previousMouse = currentMouse;
-							scope.$emit('scroller', scope.scrollType, shift * scope.scroller.stepSize);
+						if (loc == origin)
+							return;
+						ele.css(scope.scroller.cssSetting, loc + 'px');
+						scope.scroller.previousMouse = currentMouse;
+						scope.$emit('scroller', scope.scrollType, shift * scope.scroller.stepSize, determineMouseWheel(loc));
 					});
 					$document.on('mouseup', function(event) {
 						
@@ -124,7 +124,7 @@ function itScrollbarFactory($document, ItDomService) {
 						if (pos == origin)
 							return;
 						ele.css(scope.scroller.cssSetting, pos + 'px');
-						scope.$emit('scroller', scope.scrollType, (pos - origin) * scope.scroller.stepSize);
+						scope.$emit('scroller', scope.scrollType, (pos - origin) * scope.scroller.stepSize, determineMouseWheel(pos));
 					}
 					scope.tick = function(isForward) {
 						var baseMovement = (isForward === true) ? 20 : -20
@@ -133,6 +133,15 @@ function itScrollbarFactory($document, ItDomService) {
 						pos = origin + baseMovement;
 						scope.moveTo(pos);
 						
+					}
+
+					function determineMouseWheel(pos) {
+						if (scope.scrollType != 'vertical')
+							return undefined;
+						var ret = {};
+						ret.canWheelUpGlobally = (pos == 0);
+						ret.canWheelDownGlobally = (pos == scope.scroller.maxBoundary);
+						return ret;
 					}
 				}
 			}

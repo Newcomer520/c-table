@@ -55,8 +55,10 @@ function pager(scope, paginateNumber, ItDomService) {
 			for (i = (currentPage - 1) * pager.paginateNumber; i < currentPage * pager.paginateNumber && i < scope.rawRows.length; i++) {
 				scope.renderedRows.push(scope.rawRows[i]);		
 			}
-			scope.$parent.tmpDate = new Date();
-			scope.$parent.$broadcast('paginate', currentPage);
+			//scope.$parent.tmpDate = new Date();
+			//scope.$parent.$broadcast('paginate', currentPage);
+			scope.$$nextSibling.tmpDate = new Date();
+			scope.broadcast('paginate', currentPage);
 		},
 		totalPages: getTotalPages
 	}
