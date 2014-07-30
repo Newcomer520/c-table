@@ -236,12 +236,14 @@
   -o-border-radius: 5px;
   border-radius: 5px;
   vertical-align: middle;
+  position: relative;
+  bottom: 0px;
 }
-/* line 14, ../sass/pager.scss */
+/* line 16, ../sass/pager.scss */
 .it-pager .pager-inner {
   display: inline-block;
 }
-/* line 18, ../sass/pager.scss */
+/* line 20, ../sass/pager.scss */
 .it-pager input {
   text-align: center;
   width: 30px;

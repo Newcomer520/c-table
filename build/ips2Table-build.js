@@ -1113,7 +1113,7 @@ itDrtv.directive('itPager', itPagerFactory);
 function itPagerFactory() {
 	return {
 		restrict: 'EA',
-		replace: false,
+		replace: true,
 		require: '^ips2Table',
 		scope: true,
 		templateUrl: 'it-pager.html',
@@ -1322,7 +1322,8 @@ $.fn.toggleSelection = function() {
 };
 itDrtv.directive('itScrollContainer', itScrollContainerFactory);
 
-function itScrollContainerFactory() {
+itScrollContainerFactory.$inject = ['$window'];
+function itScrollContainerFactory($window) {
 	return {
 		replace: 'false',
 		require: '^ips2Table',
@@ -1354,7 +1355,7 @@ function itScrollContainerFactory() {
 
 					scope.reset();
 					scope.$on('rowsRendered', scope.reset);
-					
+					angular.element($window).on('resize', scope.reset);
 					ele.on('mousedown', function(event) {
 						scope.$apply(function() {
 							scope.$broadcast('mousedownHere', event);
@@ -1493,8 +1494,8 @@ function pager(scope, paginateNumber, ItDomService) {
 itDrtv.directive('ips2Table', ips2TableFactory);
 
 
-ips2TableFactory.$inject = ['ItDomService', '$compile', '$document'];
-function ips2TableFactory(ItDomService, $compile, $document) {
+ips2TableFactory.$inject = ['ItDomService', '$compile', '$document', '$window'];
+function ips2TableFactory(ItDomService, $compile, $document, $window) {
 	return {
 		restrict: 'EA',
 		replace: true,
@@ -1522,8 +1523,14 @@ function ips2TableFactory(ItDomService, $compile, $document) {
 					);
 
 					scope.baseWidth = ele.width();
-					scope.baseHeight = ele.height();					
-
+					scope.baseHeight = ele.height();
+					$($window).on('resize', function() {
+						var $mainContainer = $(ItDomService.getClassBy('main-container', true), ele)
+						,	pagerHeight = 50;
+						scope.baseWidth = ele.width();
+						scope.baseHeight = ele.height();
+						$mainContainer.height(scope.baseHeight - pagerHeight - paddingVertical);
+					});
 					//with pager.
 					scope.equipPager = function() {
 						var $mainContainer = $(ItDomService.getClassBy('main-container', true), ele)
