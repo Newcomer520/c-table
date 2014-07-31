@@ -29,14 +29,16 @@ function itSubtotalFactory(ItDomService, $templateCache, $compile) {
 					ele.append($template);
 					$compile(ele.contents())(scope);
 					if (ctrl.isPaging()) {
-						scope.$on('paginate', buildSubtotal);						
+						scope.$on('rowsRendered', buildSubtotal);						
 					}
 					else {
 						scope.$watch('raws', buildSubtotal);
 					}
-					function buildSubtotal() {
+					function buildSubtotal(event, isAggregated) {
 						if (ctrl.getType() == 'column')
 							return false;
+						if (isAggregated === true)
+							return true;
 						var raws = scope.raws
 						,	values
 						,	localRaws
@@ -48,7 +50,11 @@ function itSubtotalFactory(ItDomService, $templateCache, $compile) {
 						if (angular.isDefined(scope.options.joinedBy)) {
 							values = _.chain(raws).pluck(scope.options.joinedBy).uniq().value();
 							_.each(values, function(value) {
-								localRaws = _.filter(raws, function(raw) { return raw[scope.options.joinedBy] == value; });
+								//localRaws = _.filter(raws, function(raw) { return raw[scope.options.joinedBy] == value; });
+								localRaws = 
+									_.chain(raws)
+									.filter(function(raw) { return raw[scope.options.joinedBy] == value; })
+									.uniq().value();
 								aggregations.push({									
 									aggregation: scope.options.aggFn(localRaws),
 									by: value

@@ -7,7 +7,7 @@ function itKeyFactory() {
 		controller: ['$scope', function($scope) {
 			var ctrl = this;
 
-			ctrl.addField = function(id, displayName, fieldStyle, fieldClass) {
+			ctrl.addField = function(id, displayName, fieldStyle, fieldClass, editable) {
 				var field = {};
 				displayName = displayName || id;
 				if (!angular.isDefined($scope.fields)) 
@@ -15,7 +15,8 @@ function itKeyFactory() {
 
 				field['id'] = id;
 				field['name'] = displayName;
-
+				field['editable'] = editable || false;
+				
 				if (angular.isDefined(fieldStyle)) {
 					field['style'] = fieldStyle;
 				}

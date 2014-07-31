@@ -9,7 +9,7 @@ function pager(scope, paginateNumber, ItDomService) {
 		getCurrentPage: function() {
 			return this.currentPage;
 		},
-		currentPage: 1,
+		currentPage: 3,
 		paginateNumber: angular.isDefined(paginateNumber) ? parseInt(paginateNumber): 1,
 		next: function() {
 			var pager = this;
@@ -55,8 +55,9 @@ function pager(scope, paginateNumber, ItDomService) {
 			for (i = (currentPage - 1) * pager.paginateNumber; i < currentPage * pager.paginateNumber && i < scope.rawRows.length; i++) {
 				scope.renderedRows.push(scope.rawRows[i]);		
 			}
-			//scope.$parent.tmpDate = new Date();
-			//scope.$parent.$broadcast('paginate', currentPage);
+
+			scope.lastRowId = scope.renderedRows[scope.renderedRows.length - 1].id;
+			//scope.$parent.tmpDate = new Date();			
 			scope.$$nextSibling.tmpDate = new Date();
 			scope.broadcast('paginate', currentPage);
 		},

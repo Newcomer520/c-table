@@ -68,10 +68,13 @@ function itSubBlockFactory(ItDomService, $compile) {
 					var $div
 					,	subtotalObj;
 					//declare all auguments in this scope.
-					scope.key = attrs['key'];
+					scope.key = attrs['key'];					
 					scope.base = scope.$eval(attrs['base']);
 					scope.rowIndex = scope.$eval(attrs['rowIndex']);
-					scope.expression = scope.$eval(attrs['expression']);					
+					if (angular.isDefined(attrs['expression']))
+						scope.expression = scope.$eval(attrs['expression']);
+					else
+						scope.expression = undefined;					
 					scope.groupCtrl = ctrl;					
 					scope.baseWidth = ele.width();
 					scope.baseHeight = ele.height();
@@ -86,6 +89,7 @@ function itSubBlockFactory(ItDomService, $compile) {
 				},
 				post: function(scope, ele, attrs, ctrl) {
 					var i;
+					scope.text = scope.value;
 					if (scope.base === true) {
 						scope.$on(ItDomService.EventNameofHeaderRawData(ctrl.getType(), scope.columnIndex), function(event, raws) {
 							for (i = 0; i < raws.length; i++)
@@ -153,13 +157,14 @@ function itSubBlockFactory(ItDomService, $compile) {
 							}
 						}
 					}
-					function draw(value, raws) {
+					
+					function draw(value, raws) {						
 						if (angular.isDefined(scope.expression)) {
 							scope.text = scope.expression(value, raws)
 						}
 						else {
 							scope.text = value;
-						}
+						}						
 					}
 				}
 			}
@@ -186,7 +191,8 @@ function itThFactory(ItDomService, $compile, $templateCache) {
 					,	rowIndex = ctrl.getRowIndex()
 					,	$centerized;
 
-					scope.value = attrs.value;
+					scope.value = attrs.value;					
+					//scope.text = scope.value;
 					//if th with non-value (sub-total), the columnIndex will depend on the current sub-block.
 					if (angular.isDefined(scope.value))
 						ctrl.registerNewCell(scope.value);
@@ -214,7 +220,7 @@ function itThFactory(ItDomService, $compile, $templateCache) {
 					grRelativeBorder = ItDomService.getRelativeBorder(relativeOrientation);
 
 					$(ele).append(grBorder.nextBorder());
-					$(ele).append(grRelativeBorder.nextBorder());
+					$(ele).append(grRelativeBorder.nextBorder());				
 				}
 			}				
 		}

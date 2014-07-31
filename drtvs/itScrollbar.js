@@ -41,10 +41,11 @@ function itScrollbarFactory($document, ItDomService, $window) {
 						ele.css('left', '0px');
 						ele.css('top', '0px');
 						scope.scroller.maxBoundary = parseInt(ele.parent()[scope.scroller.sizeFn]()) -  ele[scope.scroller.sizeFn]();
+						scope.$emit('scrollTo', scope.scrollType, '0px');
 					}
 					scope.$on('rowsRendered', function() {
 						scope.reset();
-						scope.$emit('scrollTo', scope.scrollType, '0px');						
+						scope.$emit('scrollTo', scope.scrollType, '0px');
 					});
 
 					angular.element($window).bind('resize', function() {						

@@ -10,18 +10,18 @@ function itCellFactory(ItDomService) {
 		compile: function(tElement, tAttrs, transcludeFn) {
 			return {
 				pre: function(scope, ele, attrs, ctrl) {
-					if (angular.isDefined(attrs.text))
-						ele.text(attrs.text);
+					//if (angular.isDefined(attrs.text))
+					//	ele.text(attrs.text);
 					//scope.columnIndex = scope.cell.columnIndex;
 					//scope.rowIndex = scope.cell.rowIndex;					
 				},
 				post: function(scope, ele, attrs, ctrl) {
-					var grBorder
+					/*var grBorder
 					,	grRelativeBorder;
 					grBorder = ItDomService.getRelativeBorder('horizontal');
 					grRelativeBorder = ItDomService.getRelativeBorder('vertical');
 					ele.append(grBorder.nextBorder());
-					ele.append(grRelativeBorder.nextBorder());
+					ele.append(grRelativeBorder.nextBorder());*/
 				}
 			}
 		}
