@@ -1451,7 +1451,7 @@ function pager(scope, paginateNumber, ItDomService) {
 		getCurrentPage: function() {
 			return this.currentPage;
 		},
-		currentPage: 3,
+		currentPage: 1,
 		paginateNumber: angular.isDefined(paginateNumber) ? parseInt(paginateNumber): 1,
 		next: function() {
 			var pager = this;
