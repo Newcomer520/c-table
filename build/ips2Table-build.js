@@ -4,11 +4,12 @@ var services = angular.module('ips2.table.services', []);
 var drtvUnit = angular.module('ips2.table.grouping.units', ['templates', 'ips2.table.services']);
 
 var itDrtv = angular.module('ips2.table', ['templates', 'ips2.table.services', 'ips2.table.grouping.units']);
-angular.module("templates").run(["$templateCache", function($templateCache) {$templateCache.put("grid-cell.html","<div class=\"centerized-block\">\r\n</div>");
+angular.module("templates").run(["$templateCache", function($templateCache) {$templateCache.put("c-widget.html","<div class=\"c-widget\">\r\n</div>");
+$templateCache.put("grid-cell.html","<div class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)\">\r\n	{{cell.value}}\r\n	<div class=\"it-vertical-border right-border\"></div>\r\n	<div class=\"it-horizontal-border bottom-border\"></div>\r\n</div>");
 $templateCache.put("it-header-th.html","<div class=\"centerized\">\r\n	{{text}}\r\n</div>");
-$templateCache.put("it-pager.html","<div class=\"it-pager\">\r\n	<div class=\"pager-inner\">	\r\n		<div class=\"icon icon-first\" ng-click=\"pager.first()\"></div>\r\n		<div class=\"icon icon-previous\" ng-click=\"pager.previous()\"></div>\r\n		<div class=\"icon\" style=\"width:100px\">\r\n			<input ng-model=\"currentPage\" ng-change=\"currentPageChanged()\"/>\r\n			<span>/{{pager.totalPages()}}</span>\r\n		</div>\r\n		<div class=\"icon icon-next\" ng-click=\"pager.next()\"></div>\r\n		<div class=\"icon icon-last\" ng-click=\"pager.last()\" ng-style=\"isLast()\"></div>\r\n		<div class=\"icon\" style=\"width:130px;\">\r\n			<span>per page:</span>\r\n			<input ng-model=\"pager.paginateNumber\" ng-change=\"currentPageChanged()\" style=\"width:50px;\"/>\r\n		</div>\r\n	</div>\r\n</div>");
+$templateCache.put("it-pager.html","<div class=\"it-pager\">	\r\n	<div class=\"pager-inner\">	\r\n\r\n		<div class=\"icon icon-first\" ng-click=\"pager.first()\"></div>\r\n		<div class=\"icon icon-previous\" ng-click=\"pager.previous()\"></div>\r\n		<div class=\"icon\" style=\"width:100px\">\r\n			<input ng-model=\"currentPage\" ng-change=\"currentPageChanged()\"/>\r\n			<span>/{{pager.totalPages()}}</span>\r\n		</div>\r\n		<div class=\"icon icon-next\" ng-click=\"pager.next()\"></div>\r\n		<div class=\"icon icon-last\" ng-click=\"pager.last()\" ng-style=\"isLast()\"></div>\r\n		<div class=\"icon\" style=\"width:130px;\">\r\n			<span>per page:</span>\r\n			<input ng-model=\"pager.paginateNumber\" ng-change=\"currentPageChanged()\" style=\"width:50px;\"/>\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("it-subtotal.html","<div class=\"it-header-sub-block it-header-subtotal\">	\r\n	<div it-th class=\"it-header-cell\">\r\n	</div>\r\n</div>");
-$templateCache.put("it-table.html","<div class=\"ips2-table\">\r\n	<div class=\"it-main-container\">\r\n		<div it-scroll-container=\"horizontal\"></div>\r\n		<div it-scroll-container=\"vertical\"></div>\r\n		<div class=\"inner-container\">\r\n			<div ng-transclude></div>			\r\n			<div it-grid-viewport class=\"it-grid\" ng-style=\"gridStyle()\">				\r\n				<div class=\"grid-container\">\r\n					<div class=\"it-vertical-border left-border\"></div>\r\n					<div ng-repeat=\"row in renderedRows track by row.id\" on-finish-render>\r\n						<div class=\"it-grid-cell\" ng-repeat=\"cell in row track by cell.id\">\r\n							<div class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)\">\r\n								{{cell.value}}\r\n								<div class=\"it-vertical-border right-border\"></div>\r\n								<div class=\"it-horizontal-border bottom-border\"></div>\r\n							</div>\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div>		\r\n		</div>\r\n	</div>\r\n</div>");
+$templateCache.put("it-table.html","<div class=\"ips2-table\">	\r\n	<div class=\"it-main-container\">\r\n		<div it-scroll-container=\"horizontal\"></div>\r\n		<div it-scroll-container=\"vertical\"></div>\r\n		<div class=\"inner-container\">			\r\n			<div ng-transclude></div>			\r\n			<div it-grid-viewport class=\"it-grid\" ng-style=\"gridStyle()\">				\r\n				<div class=\"grid-container\">\r\n					<div class=\"it-vertical-border left-border\"></div>\r\n					<div ng-repeat=\"row in renderedRows\" on-finish-render>\r\n						<div it-cell class=\"it-grid-cell\" ng-repeat=\"cell in row\">\r\n\r\n							<!--<div it-cell class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)\">\r\n								{{cell.value}}\r\n								<div class=\"it-vertical-border right-border\"></div>\r\n								<div class=\"it-horizontal-border bottom-border\"></div>\r\n							</div>-->\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div>		\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("itScrollContainer.html","\r\n<div class=\"scrollbar-area\">\r\n	<div class=\"scrollbar-area-inner\">\r\n		<div it-scrollbar class=\"scrollbar\">\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("sub-block.html","");}]);
 /*
@@ -310,14 +311,16 @@ function itSubtotalFactory(ItDomService, $templateCache, $compile) {
 					ele.append($template);
 					$compile(ele.contents())(scope);
 					if (ctrl.isPaging()) {
-						scope.$on('paginate', buildSubtotal);						
+						scope.$on('rowsRendered', buildSubtotal);						
 					}
 					else {
 						scope.$watch('raws', buildSubtotal);
 					}
-					function buildSubtotal() {
+					function buildSubtotal(event, isAggregated) {
 						if (ctrl.getType() == 'column')
 							return false;
+						if (isAggregated === true)
+							return true;
 						var raws = scope.raws
 						,	values
 						,	localRaws
@@ -329,7 +332,11 @@ function itSubtotalFactory(ItDomService, $templateCache, $compile) {
 						if (angular.isDefined(scope.options.joinedBy)) {
 							values = _.chain(raws).pluck(scope.options.joinedBy).uniq().value();
 							_.each(values, function(value) {
-								localRaws = _.filter(raws, function(raw) { return raw[scope.options.joinedBy] == value; });
+								//localRaws = _.filter(raws, function(raw) { return raw[scope.options.joinedBy] == value; });
+								localRaws = 
+									_.chain(raws)
+									.filter(function(raw) { return raw[scope.options.joinedBy] == value; })
+									.uniq().value();
 								aggregations.push({									
 									aggregation: scope.options.aggFn(localRaws),
 									by: value
@@ -452,10 +459,13 @@ function itSubBlockFactory(ItDomService, $compile) {
 					var $div
 					,	subtotalObj;
 					//declare all auguments in this scope.
-					scope.key = attrs['key'];
+					scope.key = attrs['key'];					
 					scope.base = scope.$eval(attrs['base']);
 					scope.rowIndex = scope.$eval(attrs['rowIndex']);
-					scope.expression = scope.$eval(attrs['expression']);					
+					if (angular.isDefined(attrs['expression']))
+						scope.expression = scope.$eval(attrs['expression']);
+					else
+						scope.expression = undefined;					
 					scope.groupCtrl = ctrl;					
 					scope.baseWidth = ele.width();
 					scope.baseHeight = ele.height();
@@ -470,6 +480,7 @@ function itSubBlockFactory(ItDomService, $compile) {
 				},
 				post: function(scope, ele, attrs, ctrl) {
 					var i;
+					scope.text = scope.value;
 					if (scope.base === true) {
 						scope.$on(ItDomService.EventNameofHeaderRawData(ctrl.getType(), scope.columnIndex), function(event, raws) {
 							for (i = 0; i < raws.length; i++)
@@ -537,13 +548,14 @@ function itSubBlockFactory(ItDomService, $compile) {
 							}
 						}
 					}
-					function draw(value, raws) {
+					
+					function draw(value, raws) {						
 						if (angular.isDefined(scope.expression)) {
 							scope.text = scope.expression(value, raws)
 						}
 						else {
 							scope.text = value;
-						}
+						}						
 					}
 				}
 			}
@@ -570,7 +582,8 @@ function itThFactory(ItDomService, $compile, $templateCache) {
 					,	rowIndex = ctrl.getRowIndex()
 					,	$centerized;
 
-					scope.value = attrs.value;
+					scope.value = attrs.value;					
+					//scope.text = scope.value;
 					//if th with non-value (sub-total), the columnIndex will depend on the current sub-block.
 					if (angular.isDefined(scope.value))
 						ctrl.registerNewCell(scope.value);
@@ -598,7 +611,7 @@ function itThFactory(ItDomService, $compile, $templateCache) {
 					grRelativeBorder = ItDomService.getRelativeBorder(relativeOrientation);
 
 					$(ele).append(grBorder.nextBorder());
-					$(ele).append(grRelativeBorder.nextBorder());
+					$(ele).append(grRelativeBorder.nextBorder());				
 				}
 			}				
 		}
@@ -903,7 +916,7 @@ function itKeyFactory() {
 		controller: ['$scope', function($scope) {
 			var ctrl = this;
 
-			ctrl.addField = function(id, displayName, fieldStyle, fieldClass) {
+			ctrl.addField = function(id, displayName, fieldStyle, fieldClass, editable) {
 				var field = {};
 				displayName = displayName || id;
 				if (!angular.isDefined($scope.fields)) 
@@ -911,7 +924,8 @@ function itKeyFactory() {
 
 				field['id'] = id;
 				field['name'] = displayName;
-
+				field['editable'] = editable || false;
+				
 				if (angular.isDefined(fieldStyle)) {
 					field['style'] = fieldStyle;
 				}
@@ -991,8 +1005,9 @@ function itFieldFactory() {
 				var field = scope.field
 				,	name = angular.isDefined(scope['name']) ? scope['name'] : field
 				,	fieldStyle = attrs['style']
-				,	fieldClass = attrs['class'];
-				ctrl.addField(field, name, fieldStyle, fieldClass);
+				,	fieldClass = attrs['class']
+				,	editable = scope.$eval(attrs['editable']);
+				ctrl.addField(field, name, fieldStyle, fieldClass, editable);
 			}
 		}
 	}
@@ -1009,18 +1024,18 @@ function itCellFactory(ItDomService) {
 		compile: function(tElement, tAttrs, transcludeFn) {
 			return {
 				pre: function(scope, ele, attrs, ctrl) {
-					if (angular.isDefined(attrs.text))
-						ele.text(attrs.text);
+					//if (angular.isDefined(attrs.text))
+					//	ele.text(attrs.text);
 					//scope.columnIndex = scope.cell.columnIndex;
 					//scope.rowIndex = scope.cell.rowIndex;					
 				},
 				post: function(scope, ele, attrs, ctrl) {
-					var grBorder
+					/*var grBorder
 					,	grRelativeBorder;
 					grBorder = ItDomService.getRelativeBorder('horizontal');
 					grRelativeBorder = ItDomService.getRelativeBorder('vertical');
 					ele.append(grBorder.nextBorder());
-					ele.append(grRelativeBorder.nextBorder());
+					ele.append(grRelativeBorder.nextBorder());*/
 				}
 			}
 		}
@@ -1192,10 +1207,11 @@ function itScrollbarFactory($document, ItDomService, $window) {
 						ele.css('left', '0px');
 						ele.css('top', '0px');
 						scope.scroller.maxBoundary = parseInt(ele.parent()[scope.scroller.sizeFn]()) -  ele[scope.scroller.sizeFn]();
+						scope.$emit('scrollTo', scope.scrollType, '0px');
 					}
 					scope.$on('rowsRendered', function() {
 						scope.reset();
-						scope.$emit('scrollTo', scope.scrollType, '0px');						
+						scope.$emit('scrollTo', scope.scrollType, '0px');
 					});
 
 					angular.element($window).bind('resize', function() {						
@@ -1375,10 +1391,18 @@ function onFinishRenderFactory($timeout) {
     return {
         restrict: 'A',
         link: function (scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function () {
-                    scope.$emit('ngRepeatFinished');
-                });
+            //if (scope.$last === true) {
+            if (scope.lastRowId == scope.row.id) {
+                if (scope.row.isAggregated === true) {
+                    $timeout(function () {
+                        scope.$emit('ngRepeatWithAggregationFinished');
+                    });
+                }
+                else {
+                    $timeout(function () {
+                        scope.$emit('ngRepeatFinished');
+                    });
+                }                
             }
         }
     }
@@ -1427,7 +1451,7 @@ function pager(scope, paginateNumber, ItDomService) {
 		getCurrentPage: function() {
 			return this.currentPage;
 		},
-		currentPage: 1,
+		currentPage: 3,
 		paginateNumber: angular.isDefined(paginateNumber) ? parseInt(paginateNumber): 1,
 		next: function() {
 			var pager = this;
@@ -1473,8 +1497,9 @@ function pager(scope, paginateNumber, ItDomService) {
 			for (i = (currentPage - 1) * pager.paginateNumber; i < currentPage * pager.paginateNumber && i < scope.rawRows.length; i++) {
 				scope.renderedRows.push(scope.rawRows[i]);		
 			}
-			//scope.$parent.tmpDate = new Date();
-			//scope.$parent.$broadcast('paginate', currentPage);
+
+			scope.lastRowId = scope.renderedRows[scope.renderedRows.length - 1].id;
+			//scope.$parent.tmpDate = new Date();			
 			scope.$$nextSibling.tmpDate = new Date();
 			scope.broadcast('paginate', currentPage);
 		},
@@ -1526,7 +1551,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 					scope.baseHeight = ele.height();
 					$($window).on('resize', function() {
 						var $mainContainer = $(ItDomService.getClassBy('main-container', true), ele)
-						,	pagerHeight = 50;
+						,	pagerHeight = 70;
 						scope.baseWidth = ele.width();
 						scope.baseHeight = ele.height();
 						$mainContainer.height(scope.baseHeight - pagerHeight - paddingVertical);
@@ -1535,7 +1560,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 					scope.equipPager = function() {
 						var $mainContainer = $(ItDomService.getClassBy('main-container', true), ele)
 						,	$itPager = $('<div></div>')
-						,	pagerHeight = 50;
+						,	pagerHeight = 70;
 						$mainContainer.height(scope.baseHeight - pagerHeight - paddingVertical);
 						$itPager.attr('it-pager', '');
 						ele.append($itPager);
@@ -1683,7 +1708,11 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 						scope.$$nextSibling.$broadcast('scrollTo_' + scrollType, pos);
 					});
 					scope.$on('ngRepeatFinished', function(event) {
-						scope.broadcast('rowsRendered');
+						scope.broadcast('rowsRendered', false);
+						//alert(new Date() - scope.$$nextSibling.tmpDate);
+					});
+					scope.$on('ngRepeatWithAggregationFinished', function(event) {
+						scope.broadcast('rowsRendered', true);
 						//alert(new Date() - scope.$$nextSibling.tmpDate);
 					});
 
@@ -1851,7 +1880,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 													columnIndex = scIdx;
 												}
 
-												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex };
+												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex, editable: field.editable };
 												if (angular.isDefined(foundDatum)) {
 													currentRow.push(_.extend({raw: foundDatum, value: foundDatum[field.id]}, tmpObj));
 													subData = _.without(subData, foundDatum);
@@ -1879,10 +1908,11 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 									//currentRow.columnIndex = scIdx;
 									currentRow.subCondition = sCondition;
 									currentRow.id = scope.$id + '_' + (++scope._rowId);
+									scope.lastRowId = currentRow.id;
 									scope.rawRows.push(currentRow);
 								}
 							});
-						}
+						}						
 						//broadcast to all headers, tell them what data belong to them.
 						for (var key in tmpRawsIn) {
 							for (i = 0; i < tmpRawsIn[key].length; i++) {
@@ -1905,6 +1935,9 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 								scope.gridPosition.top = Math.max(groupStyle.height - 1, 0) + 'px';
 								scope.gridPosition.width += groupStyle.width;
 								scope.gridPosition.height += groupStyle.height;
+								if (scope.groups.row.disabled === true) {
+									scope.gridPosition.left = (scope.baseWidth -  scope.gridPosition.width) / 2;
+								}
 								break;
 							case 'row':
 								scope.gridPosition.left = Math.max(groupStyle.width - 1, 0) + 'px';
@@ -1976,24 +2009,21 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 								});
 								cellId = 'subtotal_' + rowIndex + '_' + columnIndex + '_' + cIdx;
 								if (angular.isDefined(currentAgg)) {
-									//aggRow.push({value: currentAgg.aggregation, rowIndex: atIndex, columnIndex: cIdx});
 									aggRow.push({id: cellId, value: currentAgg.aggregation, rowIndex: rowIndexForSubtotal, columnIndex: cIdx});
 								}
 								else {
-									//aggRow.push({value: nullValue, rowIndex: atIndex, columnIndex: cIdx});
 									aggRow.push({id: cellId, value: nullValue, rowIndex: rowIndexForSubtotal, columnIndex: cIdx});
 								}
 							});
 						}
 						else {
 							_.each(aggregations, function(agg, idx) {
-								//aggRow.push({value: agg.aggregation, rowIndex: atIndex, columnIndex: idx});
 								aggRow.push({value: agg.aggregation, rowIndex: rowIndexForSubtotal, columnIndex: idx});
 							});	
 						}
 						aggRow.id = scope.$id + '_' + rowId;//++scope._rowId;
 						aggRow.isAggregated = true;
-						
+						scope.lastRowId = aggRow.id;
 						ctrl.setCellSize('row', rowIndex, columnIndex, eleWidth, eleHeight, true);
 						scope.renderedRows.splice(atIndex, 0, aggRow);
 					});
@@ -2050,7 +2080,10 @@ function ips2TableController($scope) {
 	$scope.cellStyle = function(rowIndex, columnIndex, isAggregated) {
 		var w
 		,	h
-		,	subtotalRowObj;
+		,	i
+		,	subtotalRowObj
+		,	conditions
+		,	tmp;
 		//if (rowIndex >= $scope.headers.row.length || columnIndex >= $scope.headers.column.length)
 			//return undefined;
 			//throw 'got something error internally';
@@ -2068,9 +2101,16 @@ function ips2TableController($scope) {
 			switch ($scope.groupMainType) {
 				case 'column':
 					subtotalRowObj = rowIndex;
-					w = angular.isDefined($scope.headers.column[columnIndex * $scope.groups.column.conditions.fieldRepeat]) ?
-						($scope.headers.column[columnIndex * $scope.groups.column.conditions.fieldRepeat].width) * $scope.groups.column.conditions.fieldRepeat
-						: undefined;
+					//w = angular.isDefined($scope.headers.column[columnIndex * $scope.groups.column.conditions.fieldRepeat * $scope.groups.column.conditions.fields.length]) ?
+					//	($scope.headers.column[columnIndex * $scope.groups.column.conditions.fieldRepeat].width) * $scope.groups.column.conditions.fieldRepeat
+					//	: undefined;
+					conditions = $scope.groups.column.conditions;					
+					w = 0;
+					tmp = conditions.fields.length * conditions.fieldRepeat;
+					for (i = columnIndex * tmp; i < (columnIndex + 1) * tmp; i++) {
+						w += $scope.headers.column[i].width;
+					}
+
 					h = angular.isDefined($scope.headers.row.subtotal[subtotalRowObj.rowIndex]) ? 
 						$scope.headers.row.subtotal[subtotalRowObj.rowIndex][subtotalRowObj.columnIndex].height
 						: undefined;
@@ -2216,11 +2256,12 @@ function ips2TableController($scope) {
 
 	ctrl.draw = function() {
 		if (!angular.isDefined($scope.pager)) {
-			$scope.renderedRows = $scope.rawRows;
-			return;
+			$scope.renderedRows = $scope.rawRows;			
+		}		
+		else {
+			$scope.pager.paginate();	
 		}
-		//need to decide hiding row headers or not		
-		$scope.pager.paginate();
+		$scope.renderedRowsLength = $scope.renderedRows.length;
 		
 	}	
 };

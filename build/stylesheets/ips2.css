@@ -222,11 +222,20 @@
   display: table-cell;
   cursor: pointer;
 }
+/* line 34, ../sass/icons.scss */
+.icon:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
 
 /* line 4, ../sass/pager.scss */
 .it-pager {
-  height: 48px;
-  line-height: 48px;
+  /*height:48px;
+  line-height:48px;*/
+  overflow: auto;
+  height: 70px;
   width: 100%;
   text-align: center;
   background-color: lightblue;
@@ -239,11 +248,12 @@
   position: relative;
   bottom: 0px;
 }
-/* line 16, ../sass/pager.scss */
+/* line 18, ../sass/pager.scss */
 .it-pager .pager-inner {
   display: inline-block;
+  width: 500px;
 }
-/* line 20, ../sass/pager.scss */
+/* line 23, ../sass/pager.scss */
 .it-pager input {
   text-align: center;
   width: 30px;
@@ -299,7 +309,20 @@
   width: 100%;
 }
 
-/* line 9, ../sass/ips2.scss */
+/* line 5, ../sass/c-widget.scss */
+.ips2-table .c-widget {
+  /*position: absolute;
+  display: inline-block;;
+  left: 2px;
+  top: 2px;
+  z-index: $zIndex;*/
+  width: 26px;
+  height: 26px;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACuSURBVEiJ7ZLBDYMwDEWfgUkyQ3LvFFmAuboAU/QOM3gSKvdCJISK6MFVJJR3i239b0dfzIyU0sPMnkDAFxWRcZ7nVwfwJxOAsGkzlAJACGGYpunt4ZBz7lV1Ldrdvull8k2rOxv05n5Gw1kjxmgAy7LI/n1FmT9S/6LjZmeb/koLwyUtDO7U/7oWhivuF4Y6Rjnn3kv4qFXCoEBQ1TXG6OVVUNguEpGxFLxNNm0+7mlS8z4lkdkAAAAASUVORK5CYII=') no-repeat;
+  cursor: pointer;
+}
+
+/* line 10, ../sass/ips2.scss */
 .ips2-table {
   width: 100%;
   height: 100%;
@@ -307,11 +330,11 @@
   display: block;
   overflow: hidden;
 }
-/* line 16, ../sass/ips2.scss */
+/* line 17, ../sass/ips2.scss */
 .ips2-table div {
   box-sizing: border-box;
 }
-/* line 20, ../sass/ips2.scss */
+/* line 21, ../sass/ips2.scss */
 .ips2-table .it-main-container {
   overflow: hidden;
   width: 100%;
@@ -320,122 +343,122 @@
   padding-bottom: 20px;
   position: relative;
 }
-/* line 29, ../sass/ips2.scss */
+/* line 30, ../sass/ips2.scss */
 .ips2-table .it-main-container .inner-container {
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
-/* line 38, ../sass/ips2.scss */
+/* line 39, ../sass/ips2.scss */
 .ips2-table .scrollbar-area.hidden {
   display: none;
 }
 
-/* line 45, ../sass/ips2.scss */
+/* line 46, ../sass/ips2.scss */
 .it-group {
   overflow: visible;
   position: relative;
   z-index: 5;
 }
-/* line 52, ../sass/ips2.scss */
+/* line 53, ../sass/ips2.scss */
 .it-group.it-group-column .it-header-key-block {
   float: left;
   height: 100%;
 }
-/* line 56, ../sass/ips2.scss */
+/* line 57, ../sass/ips2.scss */
 .it-group.it-group-column .it-header-key-block :after {
   clear: both;
 }
-/* line 61, ../sass/ips2.scss */
+/* line 62, ../sass/ips2.scss */
 .it-group.it-group-column .it-header-sub-block {
   /*display: inline-block;*/
   /*float: left;*/
   display: table-cell;
 }
-/* line 67, ../sass/ips2.scss */
+/* line 68, ../sass/ips2.scss */
 .it-group.it-group-column .it-header-cell {
   /*float: left;*/
   height: 30px;
 }
-/* line 72, ../sass/ips2.scss */
+/* line 73, ../sass/ips2.scss */
 .it-group.it-group-column .it-header-row {
   display: table-row;
   /*height: 100%;*/
   /*height: $cellHeight;*/
 }
-/* line 78, ../sass/ips2.scss */
+/* line 79, ../sass/ips2.scss */
 .it-group.it-group-column .hidden-field {
   height: 0px !important;
 }
-/* line 83, ../sass/ips2.scss */
+/* line 84, ../sass/ips2.scss */
 .it-group.it-group-column:after {
   clear: both;
 }
-/* line 91, ../sass/ips2.scss */
+/* line 92, ../sass/ips2.scss */
 .it-group.it-group-row .it-header-key-block {
   /*float: left;*/
   height: 100%;
 }
-/* line 96, ../sass/ips2.scss */
+/* line 97, ../sass/ips2.scss */
 .it-group.it-group-row .it-header-sub-block {
   display: table;
 }
-/* line 100, ../sass/ips2.scss */
+/* line 101, ../sass/ips2.scss */
 .it-group.it-group-row .it-header-row {
   /*float: left;*/
   height: 100%;
   display: table-cell;
 }
-/* line 104, ../sass/ips2.scss */
+/* line 105, ../sass/ips2.scss */
 .it-group.it-group-row .it-header-row.it-header-row-last {
   height: auto;
 }
-/* line 111, ../sass/ips2.scss */
+/* line 112, ../sass/ips2.scss */
 .it-group.it-group-row .it-header-cell {
   /*float: left;*/
   width: 50px;
   display: table-cell;
   /*height: $cellHeight;*/
 }
-/* line 118, ../sass/ips2.scss */
+/* line 119, ../sass/ips2.scss */
 .it-group.it-group-row .hidden-field {
   width: 1px !important;
 }
-/* line 123, ../sass/ips2.scss */
+/* line 124, ../sass/ips2.scss */
 .it-group.it-group-row .it-subtotal {
   height: 30px;
   /*default*/
 }
-/* line 126, ../sass/ips2.scss */
+/* line 127, ../sass/ips2.scss */
 .it-group.it-group-row .it-subtotal .it-header-subtotal {
   width: 100%;
   height: 100%;
   /*height: 30px;*/
 }
-/* line 140, ../sass/ips2.scss */
+/* line 141, ../sass/ips2.scss */
 .it-group .it-header-key-block {
   position: relative;
 }
-/* line 144, ../sass/ips2.scss */
+/* line 145, ../sass/ips2.scss */
 .it-group .it-header-key-block > div:first-child {
   height: 100%;
 }
-/* line 150, ../sass/ips2.scss */
+/* line 151, ../sass/ips2.scss */
 .it-group .it-header-sub-block.hidden {
   display: none;
 }
-/* line 155, ../sass/ips2.scss */
+/* line 156, ../sass/ips2.scss */
 .it-group .it-header-key {
   display: inline-block;
 }
-/* line 159, ../sass/ips2.scss */
+/* line 160, ../sass/ips2.scss */
 .it-group .it-header {
   position: absolute;
   padding: 0px;
   text-align: center;
   overflow: hidden;
 }
-/* line 167, ../sass/ips2.scss */
+/* line 168, ../sass/ips2.scss */
 .it-group .it-header-row {
   position: relative;
   box-sizing: border-box;
@@ -445,7 +468,7 @@
   /*line-height: 30px;*/
   overflow: hidden;
 }
-/* line 177, ../sass/ips2.scss */
+/* line 178, ../sass/ips2.scss */
 .it-group .it-header-cell {
   position: relative;
   padding: 3px;
@@ -453,108 +476,108 @@
   word-break: break-all;
   line-height: 100%;
 }
-/* line 186, ../sass/ips2.scss */
+/* line 187, ../sass/ips2.scss */
 .it-group .it-key {
   display: none;
 }
-/* line 192, ../sass/ips2.scss */
+/* line 193, ../sass/ips2.scss */
 .it-group .it-header-row-dummy .it-header-cell {
   width: 100% !important;
   height: 100% !important;
 }
-/* line 199, ../sass/ips2.scss */
+/* line 200, ../sass/ips2.scss */
 .it-group .hidden-field {
   background-color: transparent !important;
   padding: 0px !important;
   font-size: 0px;
 }
 
-/* line 208, ../sass/ips2.scss */
+/* line 209, ../sass/ips2.scss */
 .centerized-block {
   text-align: center;
 }
-/* line 212, ../sass/ips2.scss */
+/* line 213, ../sass/ips2.scss */
 .centerized-block:before {
   content: '';
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-/* line 218, ../sass/ips2.scss */
+/* line 219, ../sass/ips2.scss */
 .centerized-block .centerized {
   display: inline-block;
   vertical-align: middle;
 }
 
-/* line 225, ../sass/ips2.scss */
+/* line 226, ../sass/ips2.scss */
 .it-horizontal-border {
   position: absolute;
   border-top: 1px solid #8e8e8e;
   width: 100%;
   height: 0px;
 }
-/* line 231, ../sass/ips2.scss */
+/* line 232, ../sass/ips2.scss */
 .it-horizontal-border.top-border {
   top: 0px;
   left: 0px;
 }
-/* line 237, ../sass/ips2.scss */
+/* line 238, ../sass/ips2.scss */
 .it-horizontal-border.bottom-border {
   bottom: 0px;
   left: 0px;
 }
 
-/* line 243, ../sass/ips2.scss */
+/* line 244, ../sass/ips2.scss */
 .it-vertical-border {
   position: absolute;
   border-right: 1px solid #8e8e8e;
   width: 0px;
   height: 100%;
 }
-/* line 249, ../sass/ips2.scss */
+/* line 250, ../sass/ips2.scss */
 .it-vertical-border.left-border {
   top: 0px;
   left: 0px;
 }
-/* line 254, ../sass/ips2.scss */
+/* line 255, ../sass/ips2.scss */
 .it-vertical-border.right-border {
   top: 0px;
   right: 0px;
 }
 
-/* line 261, ../sass/ips2.scss */
+/* line 262, ../sass/ips2.scss */
 .it-grid {
   display: table;
   position: relative;
   overflow: hidden;
 }
-/* line 267, ../sass/ips2.scss */
+/* line 268, ../sass/ips2.scss */
 .it-grid div {
   box-sizing: border-box;
 }
-/* line 272, ../sass/ips2.scss */
+/* line 273, ../sass/ips2.scss */
 .it-grid .it-grid-row {
   display: table-row;
   position: relative;
 }
-/* line 278, ../sass/ips2.scss */
+/* line 279, ../sass/ips2.scss */
 .it-grid .it-grid-cell {
   display: table-cell;
   position: relative;
   vertical-align: middle;
 }
-/* line 284, ../sass/ips2.scss */
+/* line 285, ../sass/ips2.scss */
 .it-grid .it-grid-cell .it-cell-content {
   padding: 3px;
 }
-/* line 289, ../sass/ips2.scss */
+/* line 290, ../sass/ips2.scss */
 .it-grid .grid-container {
   position: relative;
   left: 0px;
   top: 0px;
   z-index: 2;
 }
-/* line 296, ../sass/ips2.scss */
+/* line 297, ../sass/ips2.scss */
 .it-grid .default-cell {
   width: 100px;
   height: 30px;
