@@ -4,7 +4,7 @@ itCellFactory.$inject = ['ItDomService'];
 function itCellFactory(ItDomService) {
 	return {
 		restrict: 'EA',
-		scope: false,
+		scope: true,
 		require: '^ips2Table',
 		templateUrl: 'grid-cell.html',
 		//transclude: true,
