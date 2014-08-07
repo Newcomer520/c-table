@@ -364,7 +364,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 
 												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex, editable: field.editable };
 												if (angular.isDefined(foundDatum)) {
-													currentRow.push(_.extend({raw: foundDatum, value: foundDatum[field.id]}, tmpObj));
+													currentRow.push(_.extend({raw: foundDatum, clonedRaw: _.clone(foundDatum), value: foundDatum[field.id]}, tmpObj));
 													subData = _.without(subData, foundDatum);
 													if (!angular.isDefined(tmpRawsIn.row[rowIndex])) {
 														tmpRawsIn.row[rowIndex] = [];

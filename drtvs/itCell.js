@@ -7,15 +7,23 @@ function itCellFactory(ItDomService) {
 		scope: false,
 		require: '^ips2Table',
 		templateUrl: 'grid-cell.html',
+		//transclude: true,
 		compile: function(tElement, tAttrs, transcludeFn) {
 			return {
 				pre: function(scope, ele, attrs, ctrl) {
 					//if (angular.isDefined(attrs.text))
 					//	ele.text(attrs.text);
 					//scope.columnIndex = scope.cell.columnIndex;
-					//scope.rowIndex = scope.cell.rowIndex;					
+					//scope.rowIndex = scope.cell.rowIndex;										
 				},
 				post: function(scope, ele, attrs, ctrl) {
+					ele.on('click', function() {
+						scope.$broadcast('cell-enter');
+					});
+					scope.ngg = function() {
+						scope.$broadcast('cell-blur');
+					}
+
 					/*var grBorder
 					,	grRelativeBorder;
 					grBorder = ItDomService.getRelativeBorder('horizontal');

@@ -1,5 +1,15 @@
-<div class="centerized-block default-cell" ng-style="cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)">
-	{{cell.value}}
+<div class="centerized-block default-cell" ng-style="cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)" ng-blur="ngg">
+	<!--{{cell.value}}-->
+	<!--<div style="display:inline-block;">-->
+		<div it-cell-content="!(cell.editable && isEntered)" class="it-cell-content">
+			<div>
+				{{cell.value}}
+			</div>
+		</div>
+		<div it-cell-content="cell.editable && isEntered" class="it-cell-content">
+				<input ng-model="cell.value" class="default-input" ng-blur="alert('blur');"/>
+		</div>
+	
 	<div class="it-vertical-border right-border"></div>
 	<div class="it-horizontal-border bottom-border"></div>
 </div>
