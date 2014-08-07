@@ -75,6 +75,7 @@ function itSubtotalFactory(ItDomService, $templateCache, $compile) {
 							scope.options.position, 
 							scope.options.joinedBy, 
 							scope.options.nullValue,
+							scope.options.cellStyle,
 							ele.width(),
 							ele.height(),
 							aggregations);

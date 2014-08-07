@@ -440,7 +440,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 						scope.$$nextSibling.$broadcast('refreshGroup', scope.gridPosition);
 					});
 					
-					scope.$$nextSibling.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
+					scope.$$nextSibling.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, cellStyle, eleWidth, eleHeight, aggregations) {
 					//scope.$parent.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
 						var localRows
 						,	aggRow = []
@@ -491,10 +491,10 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 								});
 								cellId = 'subtotal_' + rowIndex + '_' + columnIndex + '_' + cIdx;
 								if (angular.isDefined(currentAgg)) {
-									aggRow.push({id: cellId, value: currentAgg.aggregation, rowIndex: rowIndexForSubtotal, columnIndex: cIdx});
+									aggRow.push({id: cellId, value: currentAgg.aggregation, rowIndex: rowIndexForSubtotal, columnIndex: cIdx, cellStyle: cellStyle});
 								}
 								else {
-									aggRow.push({id: cellId, value: nullValue, rowIndex: rowIndexForSubtotal, columnIndex: cIdx});
+									aggRow.push({id: cellId, value: nullValue, rowIndex: rowIndexForSubtotal, columnIndex: cIdx, cellStyle: cellStyle});
 								}
 							});
 						}
@@ -559,7 +559,7 @@ function ips2TableController($scope) {
 			height: $scope.baseHeight - $scope.scrollbarHeight
 		}
 	}
-	$scope.cellStyle = function(rowIndex, columnIndex, isAggregated) {
+	$scope.cellStyle = function(rowIndex, columnIndex, cellStyle, isAggregated) {
 		var w
 		,	h
 		,	i
@@ -571,13 +571,12 @@ function ips2TableController($scope) {
 			//throw 'got something error internally';
 		if (!angular.isDefined(rowIndex) || !angular.isDefined(columnIndex))
 			return undefined;
+		cellStyle = cellStyle || {};
 		if (!isAggregated) {
 			w = columnIndex < $scope.headers.column.length ? $scope.headers.column[columnIndex].width : undefined;
 			h = rowIndex < $scope.headers.row.length ? $scope.headers.row[rowIndex].height : undefined;
-			return {
-				width: w,
-				height: h,
-			}
+			cellStyle.width = w;
+			cellStyle.height = h;
 		}
 		else {//aggregated row
 			switch ($scope.groupMainType) {
@@ -596,14 +595,13 @@ function ips2TableController($scope) {
 					h = angular.isDefined($scope.headers.row.subtotal[subtotalRowObj.rowIndex]) ? 
 						$scope.headers.row.subtotal[subtotalRowObj.rowIndex][subtotalRowObj.columnIndex].height
 						: undefined;
-					return {
-						width: w,
-						height: h
-					}					
+					cellStyle.width = w;
+					cellStyle.height = h;									
 				case 'row':
 					break;
-			}
+			}			
 		}
+		return cellStyle;
 
 	}
 
