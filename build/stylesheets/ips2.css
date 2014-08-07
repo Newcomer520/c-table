@@ -495,89 +495,101 @@
 /* line 209, ../sass/ips2.scss */
 .centerized-block {
   text-align: center;
-}
-/* line 213, ../sass/ips2.scss */
-.centerized-block:before {
-  content: '';
-  display: inline-block;
-  height: 100%;
   vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  display: table;
+  	/*&:before
+  	{
+  		content: '';
+    		display: inline-block;
+    		height: 100%;
+    		vertical-align: middle;
+  	}*/
 }
-/* line 219, ../sass/ips2.scss */
+/* line 222, ../sass/ips2.scss */
 .centerized-block .centerized {
   display: inline-block;
   vertical-align: middle;
 }
 
-/* line 226, ../sass/ips2.scss */
+/* line 229, ../sass/ips2.scss */
 .it-horizontal-border {
   position: absolute;
   border-top: 1px solid #8e8e8e;
   width: 100%;
   height: 0px;
 }
-/* line 232, ../sass/ips2.scss */
+/* line 235, ../sass/ips2.scss */
 .it-horizontal-border.top-border {
   top: 0px;
   left: 0px;
 }
-/* line 238, ../sass/ips2.scss */
+/* line 241, ../sass/ips2.scss */
 .it-horizontal-border.bottom-border {
   bottom: 0px;
   left: 0px;
 }
 
-/* line 244, ../sass/ips2.scss */
+/* line 247, ../sass/ips2.scss */
 .it-vertical-border {
   position: absolute;
   border-right: 1px solid #8e8e8e;
   width: 0px;
   height: 100%;
 }
-/* line 250, ../sass/ips2.scss */
+/* line 253, ../sass/ips2.scss */
 .it-vertical-border.left-border {
   top: 0px;
   left: 0px;
 }
-/* line 255, ../sass/ips2.scss */
+/* line 258, ../sass/ips2.scss */
 .it-vertical-border.right-border {
   top: 0px;
   right: 0px;
 }
 
-/* line 262, ../sass/ips2.scss */
+/* line 265, ../sass/ips2.scss */
 .it-grid {
   display: table;
   position: relative;
   overflow: hidden;
 }
-/* line 268, ../sass/ips2.scss */
+/* line 271, ../sass/ips2.scss */
 .it-grid div {
   box-sizing: border-box;
 }
-/* line 273, ../sass/ips2.scss */
+/* line 276, ../sass/ips2.scss */
 .it-grid .it-grid-row {
   display: table-row;
   position: relative;
 }
-/* line 279, ../sass/ips2.scss */
+/* line 282, ../sass/ips2.scss */
 .it-grid .it-grid-cell {
   display: table-cell;
   position: relative;
   vertical-align: middle;
 }
-/* line 285, ../sass/ips2.scss */
+/* line 288, ../sass/ips2.scss */
 .it-grid .it-grid-cell .it-cell-content {
-  padding: 3px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  /*padding: 3px;*/
 }
-/* line 290, ../sass/ips2.scss */
+/* line 295, ../sass/ips2.scss */
+.it-grid .it-grid-cell .it-cell-content .default-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+/* line 302, ../sass/ips2.scss */
 .it-grid .grid-container {
   position: relative;
   left: 0px;
   top: 0px;
   z-index: 2;
 }
-/* line 297, ../sass/ips2.scss */
+/* line 309, ../sass/ips2.scss */
 .it-grid .default-cell {
   width: 100px;
   height: 30px;

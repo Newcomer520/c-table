@@ -4,13 +4,15 @@ var services = angular.module('ips2.table.services', []);
 var drtvUnit = angular.module('ips2.table.grouping.units', ['templates', 'ips2.table.services']);
 
 var itDrtv = angular.module('ips2.table', ['templates', 'ips2.table.services', 'ips2.table.grouping.units']);
-angular.module("templates").run(["$templateCache", function($templateCache) {$templateCache.put("c-widget.html","<div class=\"c-widget\">\r\n</div>");
-$templateCache.put("grid-cell.html","<div class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)\">\r\n	{{cell.value}}\r\n	<div class=\"it-vertical-border right-border\"></div>\r\n	<div class=\"it-horizontal-border bottom-border\"></div>\r\n</div>");
+angular.module("templates").run(["$templateCache", function($templateCache) {$templateCache.put("c-cell-content.html","");
+$templateCache.put("c-widget.html","<div class=\"c-widget\">\r\n</div>");
+$templateCache.put("grid-cell.html","<div class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, cell.cellStyle, row.isAggregated)\">\r\n	<!--{{cell.value}}--> \r\n	<!--<div style=\"display:inline-block;\">-->\r\n		<div it-cell-content=\"!(cell.editable && isEntered)\" class=\"it-cell-content\" >\r\n			<div>\r\n				{{cell.value}}\r\n			</div>\r\n		</div>\r\n		<div it-cell-content=\"cell.editable && isEntered\" class=\"it-cell-content\">\r\n				<input ng-model=\"cell.value\" class=\"default-input\" ng-blur=\"alert(\'blur\');\"/>\r\n		</div>\r\n	\r\n	<div class=\"it-vertical-border right-border\"></div>\r\n	<div class=\"it-horizontal-border bottom-border\"></div>\r\n</div>");
 $templateCache.put("it-header-th.html","<div class=\"centerized\">\r\n	{{text}}\r\n</div>");
 $templateCache.put("it-pager.html","<div class=\"it-pager\">	\r\n	<div class=\"pager-inner\">	\r\n\r\n		<div class=\"icon icon-first\" ng-click=\"pager.first()\"></div>\r\n		<div class=\"icon icon-previous\" ng-click=\"pager.previous()\"></div>\r\n		<div class=\"icon\" style=\"width:100px\">\r\n			<input ng-model=\"currentPage\" ng-change=\"currentPageChanged()\"/>\r\n			<span>/{{pager.totalPages()}}</span>\r\n		</div>\r\n		<div class=\"icon icon-next\" ng-click=\"pager.next()\"></div>\r\n		<div class=\"icon icon-last\" ng-click=\"pager.last()\" ng-style=\"isLast()\"></div>\r\n		<div class=\"icon\" style=\"width:130px;\">\r\n			<span>per page:</span>\r\n			<input ng-model=\"pager.paginateNumber\" ng-change=\"currentPageChanged()\" style=\"width:50px;\"/>\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("it-subtotal.html","<div class=\"it-header-sub-block it-header-subtotal\">	\r\n	<div it-th class=\"it-header-cell\">\r\n	</div>\r\n</div>");
 $templateCache.put("it-table.html","<div class=\"ips2-table\">	\r\n	<div class=\"it-main-container\">\r\n		<div it-scroll-container=\"horizontal\"></div>\r\n		<div it-scroll-container=\"vertical\"></div>\r\n		<div class=\"inner-container\">			\r\n			<div ng-transclude></div>			\r\n			<div it-grid-viewport class=\"it-grid\" ng-style=\"gridStyle()\">				\r\n				<div class=\"grid-container\">\r\n					<div class=\"it-vertical-border left-border\"></div>\r\n					<div ng-repeat=\"row in renderedRows\" on-finish-render>\r\n						<div it-cell class=\"it-grid-cell\" ng-repeat=\"cell in row\">\r\n\r\n							<!--<div it-cell class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, row.isAggregated)\">\r\n								{{cell.value}}\r\n								<div class=\"it-vertical-border right-border\"></div>\r\n								<div class=\"it-horizontal-border bottom-border\"></div>\r\n							</div>-->\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div>		\r\n		</div>\r\n	</div>\r\n</div>");
-$templateCache.put("itScrollContainer.html","\r\n<div class=\"scrollbar-area\">\r\n	<div class=\"scrollbar-area-inner\">\r\n		<div it-scrollbar class=\"scrollbar\">\r\n		</div>\r\n	</div>\r\n</div>");
+$templateCache.put("itCellContent.html","{{cell.value}}");
+$templateCache.put("itScrollContainer.html","<div class=\"scrollbar-area\">\r\n	<div class=\"scrollbar-area-inner\">\r\n		<div it-scrollbar class=\"scrollbar\">\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("sub-block.html","");}]);
 /*
 depend: angular, jquery
@@ -357,6 +359,7 @@ function itSubtotalFactory(ItDomService, $templateCache, $compile) {
 							scope.options.position, 
 							scope.options.joinedBy, 
 							scope.options.nullValue,
+							scope.options.cellStyle,
 							ele.width(),
 							ele.height(),
 							aggregations);
@@ -1018,18 +1021,26 @@ itCellFactory.$inject = ['ItDomService'];
 function itCellFactory(ItDomService) {
 	return {
 		restrict: 'EA',
-		scope: false,
+		scope: true,
 		require: '^ips2Table',
 		templateUrl: 'grid-cell.html',
+		//transclude: true,
 		compile: function(tElement, tAttrs, transcludeFn) {
 			return {
 				pre: function(scope, ele, attrs, ctrl) {
 					//if (angular.isDefined(attrs.text))
 					//	ele.text(attrs.text);
 					//scope.columnIndex = scope.cell.columnIndex;
-					//scope.rowIndex = scope.cell.rowIndex;					
+					//scope.rowIndex = scope.cell.rowIndex;										
 				},
 				post: function(scope, ele, attrs, ctrl) {
+					ele.on('click', function() {
+						scope.$broadcast('cell-enter');
+					});
+					scope.ngg = function() {
+						scope.$broadcast('cell-blur');
+					}
+
 					/*var grBorder
 					,	grRelativeBorder;
 					grBorder = ItDomService.getRelativeBorder('horizontal');
@@ -1406,6 +1417,132 @@ function onFinishRenderFactory($timeout) {
             }
         }
     }
+};
+/*
+	for the performance of IE8, I cannot use ng-repeat dynamically.
+*/
+
+itDrtv.directive('gridRow', gridRowFactory);
+
+gridRowFactory.$inject = ['ItDomService', '$compile'];
+function gridRowFactory(ItDomService, $compile) {
+	return {
+		restrict: 'EA',
+		scope: true,
+		require: '^ips2Table',
+		compile: function(tElement, tAttrs, transcludeFn) {
+			return {
+				pre: function(scope, ele, attrs, ctrl) {
+					var cell;
+					if (!angular.isDefined(scope.row))
+						return;
+					scope.rowIndex = scope.row.rowIndex;
+					angular.forEach(scope.row, function(datum, cIdx) {
+						cell = ItDomService.grGridCell(datum.value);
+						cell.attr('row', 'row');
+						cell.attr('column-index', cIdx);
+						//cell.attr('text',datum.value);						
+						ele.append(cell);						
+					});
+				},
+				post: function(scope, ele, attrs, ctrl) {
+					//$compile(ele.contents())(scope);
+				}
+			}
+		}
+	}
+};
+itDrtv.directive('cWidget', cWidgetFactory);
+
+function cWidgetFactory() {
+	return {
+		require: '^ips2Table',
+		scope: false,
+		templateUrl: 'c-widget.html',
+		compile: function(tEle, tAttr, transcludeFn) {
+			return {
+				pre: function(scope, ele, attrs, ctrl) {
+					
+				}
+			}
+		}
+	}
+};
+itDrtv.directive('itCellContent', itCellContentFactory);
+
+function itCellContentFactory() {
+	return {
+		scope: false,
+		restrict: 'EA',
+		transclude: 'element',
+		//require: '^itCell',
+		templateUrl: 'itCellContent.html',
+		compile: function(tElement, tAttrs, transcludeFn) {
+			return {
+				pre: function(scope, ele, attrs, ctrl) {
+					scope.isEntered = false;
+				},
+				post: function(scope, ele, attrs, ctrl) {
+					var childElement
+					,	childScope
+					,	off;
+					reset();
+					//ele.on('click', enterCell);					
+					off = scope.$on('cell-enter', enterCell);
+					scope.$on('cell-blur', leaveCell);
+					
+					function enterCell() {
+						scope.isEntered = true;
+						reset();						
+						scope.$digest();						
+						$('input', childElement).select();
+					}
+					function leaveCell() {
+						scope.isEntered = false;
+						reset();
+						scope.$digest();
+					}
+					function reset() {
+						var canCellMake = scope.$eval(attrs['itCellContent']);						
+						if (childElement) {
+							childElement.remove();
+						}
+						if (childScope) {
+							childScope.$destroy();
+							childScope = undefined;
+						}
+						if (canCellMake !== true)
+							return;
+						childScope = scope.$new();
+						transcludeFn(childScope, function(clone) {
+							childElement = clone;							
+							ele.after(clone);
+
+							if (!(scope.cell.editable && scope.isEntered))
+								return;
+							$('input', childElement).focus();
+							$('input', childElement).on('click', function(e) {
+								e.preventDefault();
+								return false;
+							});
+							$('input', childElement).on('blur', function(e) {
+								scope.$broadcast('cell-blur');
+							});
+							$('input', childElement).on('keydown', inputKeyDown);
+						});
+					}
+
+					function inputKeyDown(e) {
+						switch(e.which) {
+							case 13:
+								$('input', childElement).blur();
+								break;
+						}
+					}
+				}
+			}
+		}
+	}
 };
 function itProperty(index, condition, field) {
 	var index = index
@@ -1882,7 +2019,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 
 												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex, editable: field.editable };
 												if (angular.isDefined(foundDatum)) {
-													currentRow.push(_.extend({raw: foundDatum, value: foundDatum[field.id]}, tmpObj));
+													currentRow.push(_.extend({raw: foundDatum, clonedRaw: _.clone(foundDatum), value: foundDatum[field.id]}, tmpObj));
 													subData = _.without(subData, foundDatum);
 													if (!angular.isDefined(tmpRawsIn.row[rowIndex])) {
 														tmpRawsIn.row[rowIndex] = [];
@@ -1958,7 +2095,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 						scope.$$nextSibling.$broadcast('refreshGroup', scope.gridPosition);
 					});
 					
-					scope.$$nextSibling.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
+					scope.$$nextSibling.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, cellStyle, eleWidth, eleHeight, aggregations) {
 					//scope.$parent.$on(ItDomService.EventNameofSubtotal(), function(event, rowId, rowIndex, firstColumnIndex, lastColumnIndex, position, joinedBy, nullValue, eleWidth, eleHeight, aggregations) {
 						var localRows
 						,	aggRow = []
@@ -2009,10 +2146,10 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 								});
 								cellId = 'subtotal_' + rowIndex + '_' + columnIndex + '_' + cIdx;
 								if (angular.isDefined(currentAgg)) {
-									aggRow.push({id: cellId, value: currentAgg.aggregation, rowIndex: rowIndexForSubtotal, columnIndex: cIdx});
+									aggRow.push({id: cellId, value: currentAgg.aggregation, rowIndex: rowIndexForSubtotal, columnIndex: cIdx, cellStyle: cellStyle});
 								}
 								else {
-									aggRow.push({id: cellId, value: nullValue, rowIndex: rowIndexForSubtotal, columnIndex: cIdx});
+									aggRow.push({id: cellId, value: nullValue, rowIndex: rowIndexForSubtotal, columnIndex: cIdx, cellStyle: cellStyle});
 								}
 							});
 						}
@@ -2077,7 +2214,7 @@ function ips2TableController($scope) {
 			height: $scope.baseHeight - $scope.scrollbarHeight
 		}
 	}
-	$scope.cellStyle = function(rowIndex, columnIndex, isAggregated) {
+	$scope.cellStyle = function(rowIndex, columnIndex, cellStyle, isAggregated) {
 		var w
 		,	h
 		,	i
@@ -2089,13 +2226,12 @@ function ips2TableController($scope) {
 			//throw 'got something error internally';
 		if (!angular.isDefined(rowIndex) || !angular.isDefined(columnIndex))
 			return undefined;
+		cellStyle = cellStyle || {};
 		if (!isAggregated) {
 			w = columnIndex < $scope.headers.column.length ? $scope.headers.column[columnIndex].width : undefined;
 			h = rowIndex < $scope.headers.row.length ? $scope.headers.row[rowIndex].height : undefined;
-			return {
-				width: w,
-				height: h,
-			}
+			cellStyle.width = w;
+			cellStyle.height = h;
 		}
 		else {//aggregated row
 			switch ($scope.groupMainType) {
@@ -2114,14 +2250,13 @@ function ips2TableController($scope) {
 					h = angular.isDefined($scope.headers.row.subtotal[subtotalRowObj.rowIndex]) ? 
 						$scope.headers.row.subtotal[subtotalRowObj.rowIndex][subtotalRowObj.columnIndex].height
 						: undefined;
-					return {
-						width: w,
-						height: h
-					}					
+					cellStyle.width = w;
+					cellStyle.height = h;									
 				case 'row':
 					break;
-			}
+			}			
 		}
+		return cellStyle;
 
 	}
 
@@ -2266,7 +2401,7 @@ function ips2TableController($scope) {
 	}	
 };
 if (typeof define === 'function' && define.amd) {
-	define('ips2Table', [], function() {
+	define(function() {
 		return itDrtv;
 	});
 }

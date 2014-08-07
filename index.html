@@ -14,29 +14,38 @@
 			<script type="text/javascript" src="//inip.local/Public/Scripts/bootstrap/html5shiv.js"></script>
 			<script type="text/javascript" src="//inip.local/Public/Scripts/bootstrap/respond.js"></script>		
 		<![endif]-->		
+		<style>
+		.it-vertical-border,
+		.it-horizontal-border 
+		{
+			border: 1px solid  #E2EACB;
+		}
+		</style>
 	</head>
 	<body ng-controller="just-ctrl">
 		<div style="width:700px;height:500px;float:left;margin-right:10px;">
 			<div ips2-table data="data"  paginate="row" paginate-number="10">
 				<div it-group type="column" field-repeat="3" field-hidden="true">
 					<div it-key >
-						<div it-key key="SITE" sort="siteSort" style="background-color:pink;" expression="expr" >
-							<div it-field field="CNAME" name="姓名" style="background-color:pink;color:#fff;width:80px;">
+						<div it-key key="SITE" sort="siteSort" style="background-color: #75C5F0;" expression="expr" >
+							<!--<div it-field field="PERNR" name="工號" editable="true" style="background-color:pink;color:#fff;width:80px;">
+							</div>-->
+							<div it-field field="CNAME" name="姓名" editable="true" style="background-color:pink;color:#fff;width:80px;">
 							</div>
 						</div>
 					</div>
 				</div>
 				<div it-group type="row" field-hidden="false">
-					<div it-key key="CATEGORY" style="width:60px;font-size:10px;background-color:lightyellow;" sort="categorySort" expression="expr" subtotal="cateSubAgg">
-						<div it-key key="ZJOBCODE3TXT" style="width:90px;background-color:lightgreen;" expression="expr">
-							<div it-key key="POSITION" style="width:100px;height:40px;font-size:10px;background-color:lightgreen;" sort="positionSort" expression="expr">
+					<div it-key key="CATEGORY" style="width:60px;font-size:10px;background-color:#E9D9BA;" sort="categorySort" expression="expr" subtotal="cateSubAgg">
+						<div it-key key="ZJOBCODE3TXT" style="width:90px;background-color:#C6DF57;" expression="expr">
+							<div it-key key="POSITION" style="width:100px;height:40px;font-size:10px;background-color:#C6DF57;" sort="positionSort" expression="expr">
 							</div>
 						</div>
-					</div>					
+					</div>	
 				</div>
 			</div>
 		</div>
-		<div style="width:450px;height:500px;float:left">
+		<div style="width:500px;height:500px;float:left">
 			<div ips2-table data="data"  paginate="row" paginate-number="10">
 				<div it-group type="column" field-repeat="1" field-hidden="false">
 					<div it-key >
@@ -104,9 +113,12 @@
 			position: 'front',
 			joinedBy: 'SITE',
 			style: {
-				'background-color': 'red',
+				'background-color': '#F09BBE',
 				'font-weight': 'bold',
 				'height': '30px'
+			},
+			cellStyle: {
+				'background-color': '#F09BBE'
 			},
 			nullValue: 0,
 			expression: function(value) {
