@@ -59,7 +59,8 @@ function itScrollbarFactory($document, ItDomService, $window) {
 						scope.$apply(function() {							
 							scope.scroller.isMousedown = true;
 							scope.scroller.startAt = parseInt(ele.css(scope.scroller.cssSetting));
-							scope.scroller.previousMouse = parseInt(event[scope.scroller.axe]);
+							//scope.scroller.previousMouse = parseInt(event[scope.scroller.axe]);
+							scope.scroller.previousMouse = parseFloat(event[scope.scroller.axe]);
 							if (!angular.isDefined(scope.scroller.step)) {
 								scope.scroller.stepSize = scope.scrollInfo(scope.scrollType);
 							}
@@ -88,16 +89,19 @@ function itScrollbarFactory($document, ItDomService, $window) {
 						if (scope.scroller.isMousedown == false)
 							return;
 						origin = parseInt(ele.css(scope.scroller.cssSetting));
-						currentMouse = parseInt(event[scope.scroller.axe]); 
-						shift = parseInt(currentMouse - scope.scroller.previousMouse);						
+						//currentMouse = parseInt(event[scope.scroller.axe]);
+						//shift = parseInt(currentMouse - scope.scroller.previousMouse);
+						currentMouse = parseFloat(event[scope.scroller.axe]);
+						shift = parseFloat(currentMouse - scope.scroller.previousMouse);
 						loc = origin + shift;
-						loc = Math.min(loc + shift, scope.scroller.maxBoundary);
+						loc = Math.min(loc, scope.scroller.maxBoundary);
 						loc = Math.max(loc, 0);
 						shift = loc - origin;
 
 						if (loc == origin)
 							return;
 						ele.css(scope.scroller.cssSetting, loc + 'px');
+						//console.log(scope.scroller.previousMouse + ' ' + currentMouse + ' ' + shift + ' ' + ele.css(scope.scroller.cssSetting))
 						scope.scroller.previousMouse = currentMouse;
 						scope.$emit('scroller', scope.scrollType, shift * scope.scroller.stepSize, determineMouseWheel(loc));
 					});

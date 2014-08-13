@@ -91,26 +91,24 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 					scope.getScrollbarStyle = function(scrollType) {
 						var $inner = $(ItDomService.getClassBy('inner-container', true), ele)
 						,	perFrame
+						,	totals
 						,	w
 						,	h
-						,	minSize = 50;
+						,	minSize = 50
+						,	maxSize
+						,	stepScale = 10;
 						switch (scrollType) {
 							case 'horizontal':
-								perFrame = $inner.width() - parseInt(scope.gridPosition.left);
-								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true), ele).width()))
-									w = minSize;
-								else
-									w = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true), ele).width())
+								perFrame = $inner.width() - parseFloat(scope.gridPosition.left);
+								totals = parseFloat($(ItDomService.getClassBy('grid-container', true), ele).width());
+								w = Math.max(perFrame / totals * perFrame, minSize);
 								return {
-									'width': w 
-								}
-								break;
+									'width': w
+								}								
 							case 'vertical':
-								perFrame = $inner.height() - parseInt(scope.gridPosition.top);
-								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true), ele).height()))
-									h = minSize;
-								else
-									h = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true), ele).height())
+								perFrame = $inner.height() - parseFloat(scope.gridPosition.top);
+								totals = parseFloat($(ItDomService.getClassBy('grid-container', true), ele).height());
+								h = Math.max(perFrame / totals * perFrame, minSize);
 								return {
 									'height': h
 								}
@@ -119,6 +117,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 					scope.scrollInfo = function(scrollType) {
 						var $innerContainer = $(ItDomService.getClassBy('inner-container', true), ele.parent())
 						,	perFrame
+						,	totals
 						,	s
 						,	minSize = 50
 						,	sizeFn
@@ -134,20 +133,24 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 								posFn = 'top';
 								break;
 						}
-						perFrame = $innerContainer[sizeFn]() - parseInt(scope.gridPosition[posFn]);
-						if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]()))
+						perFrame = $innerContainer[sizeFn]() - parseFloat(scope.gridPosition[posFn]);
+						totals = parseFloat($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]());
+						s = Math.max(perFrame / totals * perFrame, minSize);						
+						/*if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]()))
 						{
 							s = minSize;
 						}
 						else
-							s = perFrame - parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]());
-						if (s == minSize) {
+							s = perFrame - parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]());*/
+						/*if (s == minSize) {
 							step = parseInt(
 								($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]() - perFrame) / (perFrame - s)
 							) + 1;
 						}
 						else
-							step = 1;
+							step = 1;*/
+						step = (totals - perFrame) / (perFrame - s);
+						step = parseInt(step) + 1;
 						return step;
 					}
 
