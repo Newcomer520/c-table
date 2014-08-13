@@ -6,7 +6,7 @@ var drtvUnit = angular.module('ips2.table.grouping.units', ['templates', 'ips2.t
 var itDrtv = angular.module('ips2.table', ['templates', 'ips2.table.services', 'ips2.table.grouping.units']);
 angular.module("templates").run(["$templateCache", function($templateCache) {$templateCache.put("c-cell-content.html","");
 $templateCache.put("c-widget.html","<div class=\"c-widget\">\r\n</div>");
-$templateCache.put("grid-cell.html","<div class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, cell.cellStyle, row.isAggregated)\">\r\n	<!--{{cell.value}}--> \r\n	<!--<div style=\"display:inline-block;\">-->\r\n		<div it-cell-content=\"!(cell.editable && isEntered)\" class=\"it-cell-content\" >\r\n			<div>\r\n				{{cell.value}}\r\n			</div>\r\n		</div>\r\n		<div it-cell-content=\"cell.editable && isEntered\" class=\"it-cell-content\">\r\n				<input ng-model=\"cell.value\" class=\"default-input\" ng-blur=\"alert(\'blur\');\"/>\r\n		</div>\r\n	\r\n	<div class=\"it-vertical-border right-border\"></div>\r\n	<div class=\"it-horizontal-border bottom-border\"></div>\r\n</div>");
+$templateCache.put("grid-cell.html","<div class=\"centerized-block default-cell\" ng-style=\"cellStyle(cell.rowIndex, cell.columnIndex, cell.cellStyle, row.isAggregated)\">\r\n	<!--{{cell.value}}--> \r\n	<!--<div style=\"display:inline-block;\">-->\r\n		<div it-cell-content=\"!(cell.editable && isEntered)\" class=\"it-cell-content\">\r\n			<div>{{cell.value}}</div>\r\n		</div>\r\n		<div it-cell-content=\"cell.editable && isEntered\" class=\"it-cell-content\">\r\n			<input ng-model=\"cell.value\" class=\"default-input\" ng-blur=\"alert(\'blur\');\"/>\r\n		</div>\r\n	\r\n	<div class=\"it-vertical-border right-border\"></div>\r\n	<div class=\"it-horizontal-border bottom-border\"></div>\r\n</div>");
 $templateCache.put("it-header-th.html","<div class=\"centerized\">\r\n	{{text}}\r\n</div>");
 $templateCache.put("it-pager.html","<div class=\"it-pager\">	\r\n	<div class=\"pager-inner\">	\r\n\r\n		<div class=\"icon icon-first\" ng-click=\"pager.first()\"></div>\r\n		<div class=\"icon icon-previous\" ng-click=\"pager.previous()\"></div>\r\n		<div class=\"icon\" style=\"width:100px\">\r\n			<input ng-model=\"currentPage\" ng-change=\"currentPageChanged()\"/>\r\n			<span>/{{pager.totalPages()}}</span>\r\n		</div>\r\n		<div class=\"icon icon-next\" ng-click=\"pager.next()\"></div>\r\n		<div class=\"icon icon-last\" ng-click=\"pager.last()\" ng-style=\"isLast()\"></div>\r\n		<div class=\"icon\" style=\"width:130px;\">\r\n			<span>per page:</span>\r\n			<input ng-model=\"pager.paginateNumber\" ng-change=\"currentPageChanged()\" style=\"width:50px;\"/>\r\n		</div>\r\n	</div>\r\n</div>");
 $templateCache.put("it-subtotal.html","<div class=\"it-header-sub-block it-header-subtotal\">	\r\n	<div it-th class=\"it-header-cell\">\r\n	</div>\r\n</div>");
@@ -1236,7 +1236,8 @@ function itScrollbarFactory($document, ItDomService, $window) {
 						scope.$apply(function() {							
 							scope.scroller.isMousedown = true;
 							scope.scroller.startAt = parseInt(ele.css(scope.scroller.cssSetting));
-							scope.scroller.previousMouse = parseInt(event[scope.scroller.axe]);
+							//scope.scroller.previousMouse = parseInt(event[scope.scroller.axe]);
+							scope.scroller.previousMouse = parseFloat(event[scope.scroller.axe]);
 							if (!angular.isDefined(scope.scroller.step)) {
 								scope.scroller.stepSize = scope.scrollInfo(scope.scrollType);
 							}
@@ -1265,16 +1266,19 @@ function itScrollbarFactory($document, ItDomService, $window) {
 						if (scope.scroller.isMousedown == false)
 							return;
 						origin = parseInt(ele.css(scope.scroller.cssSetting));
-						currentMouse = parseInt(event[scope.scroller.axe]); 
-						shift = parseInt(currentMouse - scope.scroller.previousMouse);						
+						//currentMouse = parseInt(event[scope.scroller.axe]);
+						//shift = parseInt(currentMouse - scope.scroller.previousMouse);
+						currentMouse = parseFloat(event[scope.scroller.axe]);
+						shift = parseFloat(currentMouse - scope.scroller.previousMouse);
 						loc = origin + shift;
-						loc = Math.min(loc + shift, scope.scroller.maxBoundary);
+						loc = Math.min(loc, scope.scroller.maxBoundary);
 						loc = Math.max(loc, 0);
 						shift = loc - origin;
 
 						if (loc == origin)
 							return;
 						ele.css(scope.scroller.cssSetting, loc + 'px');
+						//console.log(scope.scroller.previousMouse + ' ' + currentMouse + ' ' + shift + ' ' + ele.css(scope.scroller.cssSetting))
 						scope.scroller.previousMouse = currentMouse;
 						scope.$emit('scroller', scope.scrollType, shift * scope.scroller.stepSize, determineMouseWheel(loc));
 					});
@@ -1746,26 +1750,24 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 					scope.getScrollbarStyle = function(scrollType) {
 						var $inner = $(ItDomService.getClassBy('inner-container', true), ele)
 						,	perFrame
+						,	totals
 						,	w
 						,	h
-						,	minSize = 50;
+						,	minSize = 50
+						,	maxSize
+						,	stepScale = 10;
 						switch (scrollType) {
 							case 'horizontal':
-								perFrame = $inner.width() - parseInt(scope.gridPosition.left);
-								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true), ele).width()))
-									w = minSize;
-								else
-									w = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true), ele).width())
+								perFrame = $inner.width() - parseFloat(scope.gridPosition.left);
+								totals = parseFloat($(ItDomService.getClassBy('grid-container', true), ele).width());
+								w = Math.max(perFrame / totals * perFrame, minSize);
 								return {
-									'width': w 
-								}
-								break;
+									'width': w
+								}								
 							case 'vertical':
-								perFrame = $inner.height() - parseInt(scope.gridPosition.top);
-								if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-container', true), ele).height()))
-									h = minSize;
-								else
-									h = perFrame - parseInt($(ItDomService.getClassBy('grid-container', true), ele).height())
+								perFrame = $inner.height() - parseFloat(scope.gridPosition.top);
+								totals = parseFloat($(ItDomService.getClassBy('grid-container', true), ele).height());
+								h = Math.max(perFrame / totals * perFrame, minSize);
 								return {
 									'height': h
 								}
@@ -1774,6 +1776,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 					scope.scrollInfo = function(scrollType) {
 						var $innerContainer = $(ItDomService.getClassBy('inner-container', true), ele.parent())
 						,	perFrame
+						,	totals
 						,	s
 						,	minSize = 50
 						,	sizeFn
@@ -1789,20 +1792,24 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 								posFn = 'top';
 								break;
 						}
-						perFrame = $innerContainer[sizeFn]() - parseInt(scope.gridPosition[posFn]);
-						if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]()))
+						perFrame = $innerContainer[sizeFn]() - parseFloat(scope.gridPosition[posFn]);
+						totals = parseFloat($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]());
+						s = Math.max(perFrame / totals * perFrame, minSize);						
+						/*if ((perFrame - minSize) < parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]()))
 						{
 							s = minSize;
 						}
 						else
-							s = perFrame - parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]());
-						if (s == minSize) {
+							s = perFrame - parseInt($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]());*/
+						/*if (s == minSize) {
 							step = parseInt(
 								($(ItDomService.getClassBy('grid-viewport', true), ele)[sizeFn]() - perFrame) / (perFrame - s)
 							) + 1;
 						}
 						else
-							step = 1;
+							step = 1;*/
+						step = (totals - perFrame) / (perFrame - s);
+						step = parseInt(step) + 1;
 						return step;
 					}
 
@@ -2400,6 +2407,177 @@ function ips2TableController($scope) {
 		
 	}	
 };
+define('scripts/service/alistcategoryService',['angular'], function(angular) {
+	
+
+	var drtv = angular.module('category.service', []);
+	drtv.provider('categoryService', categoryServiceProvider);
+
+	function categoryServiceProvider()
+	{
+		var _url;
+
+		this.setWebApiUrl = function(url) {
+			_url = url;
+		}
+
+		this.$get = categoryServiceFactory;		
+
+		categoryServiceFactory.$inject = ['$http'];
+		function categoryServiceFactory($http)
+		{
+			if (!angular.isDefined(_url))
+				throw 'the url of web api must be set.';
+
+			return {
+				alistCategory: function(callback) {
+					$http.jsonp(_url)
+						.success(function(data, status) {
+							callback(undefined, data, status);
+						})
+						.error(function(data, status) {
+							callback(data, undefined, status);
+						});
+				}
+			};
+		}
+	}
+
+	
+
+	
+	return drtv;
+});
+define('scripts/controller/ng-table/ctrl',['angular', 'underscore', 'ips2Table', 'jquery', 'scripts/service/alistcategoryService'], function(angular, _, ips2Table, jquery, catService){
+	//define(['angular', 'underscore', 'ips2TableBuild', 'jquery', 'scripts/service/alistcategoryService'], function(angular, _, ips2Table, jquery, catService){
+	var ctrlModule = angular.module('ctrl-module', ['ips2.table', catService.name]);
+
+	ctrlModule.config(['categoryServiceProvider', function(provider) {
+		provider.setWebApiUrl('http://tnvcmipad/mvc/api/alistcategory/CIOSIS_007-3?callback=JSON_CALLBACK');
+	}]);
+
+	ctrlModule.controller('just-ctrl', justCtrl);
+	justCtrl.$inject = ['$scope', 'categoryService'];
+	function justCtrl($scope, categoryService) {
+		categoryService.alistCategory(function(error, data, status) {			
+			$scope.data = data;
+			
+
+			/*var xReg = /(.).(.*)/;
+			_.each(dd, function(datum) {
+				datum.CNAME = datum.CNAME.replace(xReg, '$1X$2');
+			})*/
+
+		});
+		/*$scope.data = [
+			{category: '工作', site: 'JN', cname: '林正田'},
+			{category: '工作', site: 'JN', cname: '鄧建松'},
+			{category: '工作', site: 'JN', cname: '劉朝文'},
+			{category: '工作', site: 'JN', cname: '吳致綸'},
+			{category: '互動', site: 'JN', cname: '陳鵲如'},
+			{category: '互動', site: 'JN', cname: 'WilliamHofman'},
+			{category: '互動', site: 'JN', cname: '沈大逸'},
+			{category: '互動', site: 'JN', cname: '邵錦文'},
+			{category: '工作', site: 'TN', cname: '劉聖光'},
+			{category: '工作', site: 'TN', cname: '林永龍'},
+			{category: '工作', site: 'TN', cname: '趙美玲'},
+			{category: '工作', site: 'TN', cname: '楊智安'},
+			{category: '工作', site: 'TN', cname: '黃瑋文'},
+			{category: '工作', site: 'TN', cname: '楊淑怡'},
+			{category: '工作', site: 'TN', cname: '李奇鴻'},
+			{category: '工作', site: 'TN', cname: '何宗憲'},
+			{category: '工作', site: 'TN', cname: '張博凱'},*/
+			/*{category: '工作', site: 'TN', cname: '楊定曄'},
+			{category: '互動', site: 'TN', cname: '郭正夏'},
+			{category: '互動', site: 'TN', cname: '吳柏勳'},
+			{category: '互動', site: 'TN', cname: '楊竣傑'},
+			{category: '互動', site: 'TN', cname: '鍾朝鈞'},*/
+			/*{category: '廠商', site: 'TN', cname: '鄭光容'},
+			{category: '朋友', site: 'TN', cname: '沈建慶'},
+			{category: '互動', site: 'LH', cname: '鄭國偉'}
+		];*/
+
+
+		$scope.siteSort = {
+			fn: function(item) { return item.SITE; },
+			desc: true
+		};
+
+		$scope.categorySort = {
+			fn: function(item) { 
+				switch (item.CATEGORY) {
+					case '主管群組':
+						return 1;
+					case '工作':
+						return 0;
+					case '互動':
+						return 2;
+					default:
+						return 999;
+				}
+			},
+			desc: false
+		};
+		$scope.positionSort = {
+			fn: function(item) { return item.POSITION; },
+			desc: true
+		};
+		$scope.aggBySite = {
+			aggFn: function(item) {
+				return 1;
+			}
+		}
+		$scope.expr = function(value, raws) {
+			return value + '(' + _.uniq(raws).length + ')';
+		}
+
+		$scope.cateSubAgg = {
+			position: 'front',
+			joinedBy: 'SITE',
+			style: {
+				'background-color': '#F09BBE',
+				'font-weight': 'bold',
+				'height': '30px'
+			},
+			cellStyle: {
+				'background-color': '#F09BBE'
+			},
+			nullValue: 0,
+			expression: function(value) {
+				return value + '家族 by 廠區小計';
+			},
+			aggFn: function(localRaws) {
+				return localRaws.length;
+			}
+		}
+
+		$scope.posSubAgg = {
+			position: 'front',
+			joinedBy: 'SITE',
+			style: {
+				'background-color': 'blue',
+				'color': 'white',
+				'font-weight': 'bold',
+				'height': '30px'
+			},
+			nullValue: 0,
+			expression: function(value) {
+				return value + 'by 廠區小計';
+			},
+			aggFn: function(localRaws) {
+				return localRaws.length;
+			}
+		}
+	}
+	return ctrlModule;
+});
+define('scripts/app-ng-table',['angular', 'scripts/controller/ng-table/ctrl'], function(angular, ctrlModule) {
+	var app = angular.module('ng-table-app', [ctrlModule.name]);
+
+	angular.bootstrap(document.body, ['ng-table-app']);
+
+	return app;
+});
 if (typeof define === 'function' && define.amd) {
 	define(function() {
 		return itDrtv;
