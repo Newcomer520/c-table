@@ -588,12 +588,14 @@ function itThFactory(ItDomService, $compile, $templateCache) {
 					scope.value = attrs.value;					
 					//scope.text = scope.value;
 					//if th with non-value (sub-total), the columnIndex will depend on the current sub-block.
-					if (angular.isDefined(scope.value))
-						ctrl.registerNewCell(scope.value);
+					
 
 					$centerized = $($templateCache.get('it-header-th.html'));
 					$compile($centerized)(scope);
 					$(ele).append($centerized);
+					
+					if (angular.isDefined(scope.value))
+						ctrl.registerNewCell(scope.value);
 
 					if (angular.isDefined(attrs.isHidden) && scope.$eval(attrs.isHidden) == true)
 						return;
@@ -919,7 +921,7 @@ function itKeyFactory() {
 		controller: ['$scope', function($scope) {
 			var ctrl = this;
 
-			ctrl.addField = function(id, displayName, fieldStyle, fieldClass, editable) {
+			ctrl.addField = function(id, displayName, fieldStyle, fieldClass, editable, cellStyle) {
 				var field = {};
 				displayName = displayName || id;
 				if (!angular.isDefined($scope.fields)) 
@@ -934,6 +936,9 @@ function itKeyFactory() {
 				}
 				if (angular.isDefined(fieldClass)) {
 					field['class'] = fieldClass;
+				}
+				if (angular.isDefined(cellStyle)) {
+					field['cellStyle'] = cellStyle;
 				}
 
 				$scope.fields.push(field);
@@ -1003,15 +1008,35 @@ function itFieldFactory() {
 			'name': '@'
 		},
 		link: function(scope, ele, attrs, ctrl) {
-			//if (angular.isDefined(scope.field)) 
-			{
-				var field = scope.field
-				,	name = angular.isDefined(scope['name']) ? scope['name'] : field
-				,	fieldStyle = attrs['style']
-				,	fieldClass = attrs['class']
-				,	editable = scope.$eval(attrs['editable']);
-				ctrl.addField(field, name, fieldStyle, fieldClass, editable);
+			//if (angular.isDefined(scope.field)) 			
+			var field = scope.field
+			,	name = angular.isDefined(scope['name']) ? scope['name'] : field
+			,	fieldStyle = attrs['style']
+			,	fieldClass = attrs['class']
+			,	editable = scope.$eval(attrs['editable'])
+			,	cellStyle = evalStyle(attrs['cellStyle']);
+
+			ctrl.addField(field, name, fieldStyle, fieldClass, editable, cellStyle);
+			
+			//convert the style to a object
+			function evalStyle(styleString) {
+				var cellStyle = {}
+				,	props
+				,	single
+				,	i
+				,	j;
+				if (typeof styleString !== 'string')
+					return styleString;
+				props = styleString.split(';');
+				for (i = 0; i < props.length; i++) {
+					single = props[i].split(':');
+					if (single.length != 2)
+						continue;
+					cellStyle[single[0]] = single[1];
+				}
+				return cellStyle;
 			}
+
 		}
 	}
 };
@@ -2024,7 +2049,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 													columnIndex = scIdx;
 												}
 
-												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex, editable: field.editable };
+												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex, editable: field.editable, cellStyle: field.cellStyle };
 												if (angular.isDefined(foundDatum)) {
 													currentRow.push(_.extend({raw: foundDatum, clonedRaw: _.clone(foundDatum), value: foundDatum[field.id]}, tmpObj));
 													subData = _.without(subData, foundDatum);
@@ -2227,7 +2252,8 @@ function ips2TableController($scope) {
 		,	i
 		,	subtotalRowObj
 		,	conditions
-		,	tmp;
+		,	tmp
+		,	cellStyle;
 		//if (rowIndex >= $scope.headers.row.length || columnIndex >= $scope.headers.column.length)
 			//return undefined;
 			//throw 'got something error internally';
@@ -2352,7 +2378,7 @@ function ips2TableController($scope) {
 	*/
 	ctrl.setCellSize = function(groupType, rowIndex, columnIndex, width, height, isSubTotal) {
 		if (groupType != 'column' && groupType != 'row') 
-			throw 'the type of group is restricted by column or row only.';
+			throw 'the type of group is restricted by column or row only.';		
 
 		if (isSubTotal !== true) { //regular cell.
 			$scope.headers[groupType][columnIndex] = {
@@ -2360,7 +2386,7 @@ function ips2TableController($scope) {
 				columnIndex: columnIndex,
 				width: width,
 				height: height
-			};	
+			};
 		}
 		else {
 			if (!angular.isDefined($scope.headers[groupType].subtotal[rowIndex]))
@@ -2407,177 +2433,6 @@ function ips2TableController($scope) {
 		
 	}	
 };
-define('scripts/service/alistcategoryService',['angular'], function(angular) {
-	
-
-	var drtv = angular.module('category.service', []);
-	drtv.provider('categoryService', categoryServiceProvider);
-
-	function categoryServiceProvider()
-	{
-		var _url;
-
-		this.setWebApiUrl = function(url) {
-			_url = url;
-		}
-
-		this.$get = categoryServiceFactory;		
-
-		categoryServiceFactory.$inject = ['$http'];
-		function categoryServiceFactory($http)
-		{
-			if (!angular.isDefined(_url))
-				throw 'the url of web api must be set.';
-
-			return {
-				alistCategory: function(callback) {
-					$http.jsonp(_url)
-						.success(function(data, status) {
-							callback(undefined, data, status);
-						})
-						.error(function(data, status) {
-							callback(data, undefined, status);
-						});
-				}
-			};
-		}
-	}
-
-	
-
-	
-	return drtv;
-});
-define('scripts/controller/ng-table/ctrl',['angular', 'underscore', 'ips2Table', 'jquery', 'scripts/service/alistcategoryService'], function(angular, _, ips2Table, jquery, catService){
-	//define(['angular', 'underscore', 'ips2TableBuild', 'jquery', 'scripts/service/alistcategoryService'], function(angular, _, ips2Table, jquery, catService){
-	var ctrlModule = angular.module('ctrl-module', ['ips2.table', catService.name]);
-
-	ctrlModule.config(['categoryServiceProvider', function(provider) {
-		provider.setWebApiUrl('http://tnvcmipad/mvc/api/alistcategory/CIOSIS_007-3?callback=JSON_CALLBACK');
-	}]);
-
-	ctrlModule.controller('just-ctrl', justCtrl);
-	justCtrl.$inject = ['$scope', 'categoryService'];
-	function justCtrl($scope, categoryService) {
-		categoryService.alistCategory(function(error, data, status) {			
-			$scope.data = data;
-			
-
-			/*var xReg = /(.).(.*)/;
-			_.each(dd, function(datum) {
-				datum.CNAME = datum.CNAME.replace(xReg, '$1X$2');
-			})*/
-
-		});
-		/*$scope.data = [
-			{category: '工作', site: 'JN', cname: '林正田'},
-			{category: '工作', site: 'JN', cname: '鄧建松'},
-			{category: '工作', site: 'JN', cname: '劉朝文'},
-			{category: '工作', site: 'JN', cname: '吳致綸'},
-			{category: '互動', site: 'JN', cname: '陳鵲如'},
-			{category: '互動', site: 'JN', cname: 'WilliamHofman'},
-			{category: '互動', site: 'JN', cname: '沈大逸'},
-			{category: '互動', site: 'JN', cname: '邵錦文'},
-			{category: '工作', site: 'TN', cname: '劉聖光'},
-			{category: '工作', site: 'TN', cname: '林永龍'},
-			{category: '工作', site: 'TN', cname: '趙美玲'},
-			{category: '工作', site: 'TN', cname: '楊智安'},
-			{category: '工作', site: 'TN', cname: '黃瑋文'},
-			{category: '工作', site: 'TN', cname: '楊淑怡'},
-			{category: '工作', site: 'TN', cname: '李奇鴻'},
-			{category: '工作', site: 'TN', cname: '何宗憲'},
-			{category: '工作', site: 'TN', cname: '張博凱'},*/
-			/*{category: '工作', site: 'TN', cname: '楊定曄'},
-			{category: '互動', site: 'TN', cname: '郭正夏'},
-			{category: '互動', site: 'TN', cname: '吳柏勳'},
-			{category: '互動', site: 'TN', cname: '楊竣傑'},
-			{category: '互動', site: 'TN', cname: '鍾朝鈞'},*/
-			/*{category: '廠商', site: 'TN', cname: '鄭光容'},
-			{category: '朋友', site: 'TN', cname: '沈建慶'},
-			{category: '互動', site: 'LH', cname: '鄭國偉'}
-		];*/
-
-
-		$scope.siteSort = {
-			fn: function(item) { return item.SITE; },
-			desc: true
-		};
-
-		$scope.categorySort = {
-			fn: function(item) { 
-				switch (item.CATEGORY) {
-					case '主管群組':
-						return 1;
-					case '工作':
-						return 0;
-					case '互動':
-						return 2;
-					default:
-						return 999;
-				}
-			},
-			desc: false
-		};
-		$scope.positionSort = {
-			fn: function(item) { return item.POSITION; },
-			desc: true
-		};
-		$scope.aggBySite = {
-			aggFn: function(item) {
-				return 1;
-			}
-		}
-		$scope.expr = function(value, raws) {
-			return value + '(' + _.uniq(raws).length + ')';
-		}
-
-		$scope.cateSubAgg = {
-			position: 'front',
-			joinedBy: 'SITE',
-			style: {
-				'background-color': '#F09BBE',
-				'font-weight': 'bold',
-				'height': '30px'
-			},
-			cellStyle: {
-				'background-color': '#F09BBE'
-			},
-			nullValue: 0,
-			expression: function(value) {
-				return value + '家族 by 廠區小計';
-			},
-			aggFn: function(localRaws) {
-				return localRaws.length;
-			}
-		}
-
-		$scope.posSubAgg = {
-			position: 'front',
-			joinedBy: 'SITE',
-			style: {
-				'background-color': 'blue',
-				'color': 'white',
-				'font-weight': 'bold',
-				'height': '30px'
-			},
-			nullValue: 0,
-			expression: function(value) {
-				return value + 'by 廠區小計';
-			},
-			aggFn: function(localRaws) {
-				return localRaws.length;
-			}
-		}
-	}
-	return ctrlModule;
-});
-define('scripts/app-ng-table',['angular', 'scripts/controller/ng-table/ctrl'], function(angular, ctrlModule) {
-	var app = angular.module('ng-table-app', [ctrlModule.name]);
-
-	angular.bootstrap(document.body, ['ng-table-app']);
-
-	return app;
-});
 if (typeof define === 'function' && define.amd) {
 	define(function() {
 		return itDrtv;

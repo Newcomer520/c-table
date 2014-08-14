@@ -499,7 +499,6 @@
   width: 100%;
   height: 100%;
   display: table;
-  table-layout: fixed;
   	/*&:before
   	{
   		content: '';
@@ -508,69 +507,73 @@
     		vertical-align: middle;
   	}*/
 }
-/* line 223, ../sass/ips2.scss */
+/* line 216, ../sass/ips2.scss */
+.centerized-block.default-cell {
+  table-layout: fixed;
+}
+/* line 226, ../sass/ips2.scss */
 .centerized-block .centerized {
   display: inline-block;
   vertical-align: middle;
 }
 
-/* line 230, ../sass/ips2.scss */
+/* line 233, ../sass/ips2.scss */
 .it-horizontal-border {
   position: absolute;
   border-top: 1px solid #8e8e8e;
   width: 100%;
   height: 0px;
 }
-/* line 236, ../sass/ips2.scss */
+/* line 239, ../sass/ips2.scss */
 .it-horizontal-border.top-border {
   top: 0px;
   left: 0px;
 }
-/* line 242, ../sass/ips2.scss */
+/* line 245, ../sass/ips2.scss */
 .it-horizontal-border.bottom-border {
   bottom: 0px;
   left: 0px;
 }
 
-/* line 248, ../sass/ips2.scss */
+/* line 251, ../sass/ips2.scss */
 .it-vertical-border {
   position: absolute;
   border-right: 1px solid #8e8e8e;
   width: 0px;
   height: 100%;
 }
-/* line 254, ../sass/ips2.scss */
+/* line 257, ../sass/ips2.scss */
 .it-vertical-border.left-border {
   top: 0px;
   left: 0px;
 }
-/* line 259, ../sass/ips2.scss */
+/* line 262, ../sass/ips2.scss */
 .it-vertical-border.right-border {
   top: 0px;
   right: 0px;
 }
 
-/* line 266, ../sass/ips2.scss */
+/* line 269, ../sass/ips2.scss */
 .it-grid {
   display: table;
   position: relative;
   overflow: hidden;
 }
-/* line 272, ../sass/ips2.scss */
+/* line 275, ../sass/ips2.scss */
 .it-grid div {
   box-sizing: border-box;
 }
-/* line 277, ../sass/ips2.scss */
+/* line 280, ../sass/ips2.scss */
 .it-grid .it-grid-row {
   position: relative;
 }
-/* line 282, ../sass/ips2.scss */
+/* line 285, ../sass/ips2.scss */
 .it-grid .it-grid-cell {
   display: table-cell;
   position: relative;
   vertical-align: middle;
 }
-/* line 288, ../sass/ips2.scss */
+/* line 291, ../sass/ips2.scss */
 .it-grid .it-grid-cell .it-cell-content {
   display: table-cell;
   vertical-align: middle;
@@ -581,12 +584,12 @@
   text-overflow: ellipsis;
   padding: 3px;
 }
-/* line 299, ../sass/ips2.scss */
+/* line 302, ../sass/ips2.scss */
 .it-grid .it-grid-cell .it-cell-content .default-input {
   width: 100%;
   box-sizing: border-box;
 }
-/* line 305, ../sass/ips2.scss */
+/* line 308, ../sass/ips2.scss */
 .it-grid .it-grid-cell .it-cell-content div,
 .it-grid .it-grid-cell .it-cell-content span {
   overflow: hidden;
@@ -594,16 +597,16 @@
   /*display: inline-block;*/
   padding: 2px;
   white-space: nowrap;
-  word-wrap: break-word;
+  /*word-wrap: break-word;*/
 }
-/* line 317, ../sass/ips2.scss */
+/* line 320, ../sass/ips2.scss */
 .it-grid .grid-container {
   position: relative;
   left: 0px;
   top: 0px;
   z-index: 2;
 }
-/* line 324, ../sass/ips2.scss */
+/* line 327, ../sass/ips2.scss */
 .it-grid .default-cell {
   width: 100px;
   height: 30px;
