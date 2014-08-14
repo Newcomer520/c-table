@@ -575,7 +575,7 @@ function ips2TableController($scope) {
 			//throw 'got something error internally';
 		if (!angular.isDefined(rowIndex) || !angular.isDefined(columnIndex))
 			return undefined;
-		cellStyle = {};
+		cellStyle = cellStyle || {};
 		if (!isAggregated) {
 			w = columnIndex < $scope.headers.column.length ? $scope.headers.column[columnIndex].width : undefined;
 			h = rowIndex < $scope.headers.row.length ? $scope.headers.row[rowIndex].height : undefined;
