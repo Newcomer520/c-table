@@ -194,12 +194,14 @@ function itThFactory(ItDomService, $compile, $templateCache) {
 					scope.value = attrs.value;					
 					//scope.text = scope.value;
 					//if th with non-value (sub-total), the columnIndex will depend on the current sub-block.
-					if (angular.isDefined(scope.value))
-						ctrl.registerNewCell(scope.value);
+					
 
 					$centerized = $($templateCache.get('it-header-th.html'));
 					$compile($centerized)(scope);
 					$(ele).append($centerized);
+					
+					if (angular.isDefined(scope.value))
+						ctrl.registerNewCell(scope.value);
 
 					if (angular.isDefined(attrs.isHidden) && scope.$eval(attrs.isHidden) == true)
 						return;

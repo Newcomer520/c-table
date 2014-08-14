@@ -21,8 +21,9 @@ function itFieldFactory() {
 				,	name = angular.isDefined(scope['name']) ? scope['name'] : field
 				,	fieldStyle = attrs['style']
 				,	fieldClass = attrs['class']
-				,	editable = scope.$eval(attrs['editable']);
-				ctrl.addField(field, name, fieldStyle, fieldClass, editable);
+				,	editable = scope.$eval(attrs['editable'])
+				,	cellStyle = attrs['cellStyle'];
+				ctrl.addField(field, name, fieldStyle, fieldClass, editable, cellStyle);
 			}
 		}
 	}

@@ -365,7 +365,7 @@ function ips2TableFactory(ItDomService, $compile, $document, $window) {
 													columnIndex = scIdx;
 												}
 
-												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex, editable: field.editable };
+												tmpObj = {id: 'cell_'  + scope.$id + '_' + rowIndex + '_' + columnIndex + '_' + fIdx, rowIndex: rowIndex, columnIndex: columnIndex, editable: field.editable, cellStyle: field.cellStyle };
 												if (angular.isDefined(foundDatum)) {
 													currentRow.push(_.extend({raw: foundDatum, clonedRaw: _.clone(foundDatum), value: foundDatum[field.id]}, tmpObj));
 													subData = _.without(subData, foundDatum);
@@ -568,13 +568,14 @@ function ips2TableController($scope) {
 		,	i
 		,	subtotalRowObj
 		,	conditions
-		,	tmp;
+		,	tmp
+		,	cellStyle;
 		//if (rowIndex >= $scope.headers.row.length || columnIndex >= $scope.headers.column.length)
 			//return undefined;
 			//throw 'got something error internally';
 		if (!angular.isDefined(rowIndex) || !angular.isDefined(columnIndex))
 			return undefined;
-		cellStyle = cellStyle || {};
+		cellStyle = {};
 		if (!isAggregated) {
 			w = columnIndex < $scope.headers.column.length ? $scope.headers.column[columnIndex].width : undefined;
 			h = rowIndex < $scope.headers.row.length ? $scope.headers.row[rowIndex].height : undefined;
@@ -693,7 +694,7 @@ function ips2TableController($scope) {
 	*/
 	ctrl.setCellSize = function(groupType, rowIndex, columnIndex, width, height, isSubTotal) {
 		if (groupType != 'column' && groupType != 'row') 
-			throw 'the type of group is restricted by column or row only.';
+			throw 'the type of group is restricted by column or row only.';		
 
 		if (isSubTotal !== true) { //regular cell.
 			$scope.headers[groupType][columnIndex] = {
@@ -701,7 +702,7 @@ function ips2TableController($scope) {
 				columnIndex: columnIndex,
 				width: width,
 				height: height
-			};	
+			};
 		}
 		else {
 			if (!angular.isDefined($scope.headers[groupType].subtotal[rowIndex]))
